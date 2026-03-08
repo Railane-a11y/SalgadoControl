@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ðŸ¥Ÿ SalgadoControl - Sistema Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#E67E22;--primary-dark:#D35400;--secondary:#2C3E50;--bg-dark:#1a1a2e;--bg-card:rgba(255,255,255,0.95);--text:#2d3436;--text-light:#636e72;--green:#27ae60;--red:#e74c3c;--blue:#3498db;--purple:#8e44ad;--yellow:#f1c40f}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#1a1a2e,#2C3E50,#1e3a2f);min-height:100vh;color:var(--text)}
+.top-header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:15px 30px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+.top-header h1{color:white;font-size:1.5rem;font-weight:800}
+.top-header h1 span{color:#ffe0b2}
+.header-stats{display:flex;gap:12px;align-items:center}
+.header-stat{background:rgba(255,255,255,0.15);padding:8px 16px;border-radius:10px;text-align:center;color:white;font-size:0.75rem;min-width:80px}
+.header-stat .val{font-size:1.1rem;font-weight:700;display:block}
+.btn-logout{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.2);color:white;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;transition:all 0.3s}
+.btn-logout:hover{background:rgba(0,0,0,0.4)}
+nav{background:rgba(255,255,255,0.97);padding:0 20px;display:flex;gap:0;overflow-x:auto;position:sticky;top:65px;z-index:99;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+nav button{padding:14px 18px;border:none;background:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:500;color:var(--text-light);white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.3s}
+nav button:hover{color:var(--primary)}
+nav button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700}
+.page{display:none;padding:25px;max-width:1300px;margin:0 auto;animation:fadeIn 0.3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--bg-card);border-radius:16px;padding:25px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.05)}
+.card-header{font-size:1.2rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--secondary)}
+.card-header.orange{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;margin:-25px -25px 20px;padding:18px 25px;border-radius:16px 16px 0 0}
+.card-header.green{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;margin:-25px -25px 20px;padding:18px 25px;border-radius:16px 16px 0 0}
+.card-header.dark{background:linear-gradient(135deg,var(--secondary),#34495e);color:white;margin:-25px -25px 20px;padding:18px 25px;border-radius:16px 16px 0 0}
+.card-header.purple{background:linear-gradient(135deg,var(--purple),#9b59b6);color:white;margin:-25px -25px 20px;padding:18px 25px;border-radius:16px 16px 0 0}
+.card-header.red{background:linear-gradient(135deg,#c0392b,var(--red));color:white;margin:-25px -25px 20px;padding:18px 25px;border-radius:16px 16px 0 0}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px}
+.stat-card{background:linear-gradient(135deg,var(--secondary),#34495e);border-radius:14px;padding:20px;text-align:center;color:white}
+.stat-card .stat-val{font-size:2rem;font-weight:800;margin:5px 0}
+.stat-card .stat-label{font-size:0.8rem;opacity:0.7}
+.stat-card.green .stat-val{color:#2ecc71}
+.stat-card.blue .stat-val{color:#3498db}
+.stat-card.orange .stat-val{color:#e67e22}
+.stat-card.purple .stat-val{color:#a29bfe}
+.stat-card.red .stat-val{color:#e74c3c}
+input,select,textarea{width:100%;padding:12px 16px;border:2px solid #e0e0e0;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.95rem;transition:all 0.3s;background:white}
+input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(230,126,34,0.1)}
+label{display:block;margin-bottom:6px;font-weight:600;font-size:0.85rem;color:var(--text-light)}
+.form-group{margin-bottom:16px}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.btn{padding:12px 24px;border:none;border-radius:12px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,0.2)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white}
+.btn-green{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white}
+.btn-red{background:linear-gradient(135deg,#c0392b,#e74c3c);color:white}
+.btn-dark{background:linear-gradient(135deg,var(--secondary),#34495e);color:white}
+.btn-gray{background:#95a5a6;color:white}
+.btn-sm{padding:8px 14px;font-size:0.8rem}
+.btn-block{width:100%;justify-content:center}
+table{width:100%;border-collapse:collapse}
+th{background:var(--secondary);color:white;padding:12px;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:12px;border-bottom:1px solid #eee;font-size:0.9rem}
+tr:hover{background:rgba(230,126,34,0.05)}
+.search-box{position:relative;margin-bottom:20px}
+.search-box input{padding-left:45px}
+.search-box::before{content:'ðŸ”';position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:1.1rem}
+.filter-pills{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.pill{padding:8px 18px;border-radius:20px;border:2px solid #e0e0e0;background:white;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;transition:all 0.3s}
+.pill.active{background:var(--secondary);color:white;border-color:var(--secondary)}
+.pill .count{background:rgba(0,0,0,0.1);padding:2px 8px;border-radius:10px;margin-left:5px;font-size:0.7rem}
+.empty-state{text-align:center;padding:50px;color:var(--text-light)}
+.empty-state .icon{font-size:3rem;margin-bottom:10px;opacity:0.5}
+.ingredient-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;padding:10px;background:#f8f9fa;border-radius:10px}
+.ingredient-row select{flex:2}
+.ingredient-row input{flex:1}
+.ingredient-row .cost{min-width:80px;font-weight:600;color:var(--primary)}
+.ingredient-row .btn-remove{background:var(--red);color:white;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.resumo-box{background:linear-gradient(135deg,var(--secondary),#34495e);border-radius:16px;padding:25px;color:white;margin-top:20px}
+.resumo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:15px}
+.resumo-item{background:rgba(255,255,255,0.08);padding:12px;border-radius:10px;text-align:center}
+.resumo-item .r-label{font-size:0.7rem;opacity:0.7;margin-bottom:4px}
+.resumo-item .r-val{font-size:1.1rem;font-weight:700}
+.resumo-item .r-val.red{color:#e74c3c}
+.resumo-item .r-val.green{color:#2ecc71}
+.resumo-item .r-val.orange{color:#e67e22}
+.resumo-item .r-val.blue{color:#3498db}
+.resumo-item .r-val.yellow{color:#f1c40f}
+.cmv-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.1);margin-top:5px;overflow:hidden}
+.cmv-bar-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.custo-fixo-item{display:flex;align-items:center;gap:15px;padding:15px;background:white;border-radius:12px;border-left:4px solid var(--primary);margin-bottom:10px}
+.custo-fixo-item .cf-icon{font-size:1.5rem;width:40px;text-align:center}
+.custo-fixo-item .cf-info{flex:1}
+.custo-fixo-item .cf-info h4{font-size:0.95rem;font-weight:600}
+.custo-fixo-item .cf-info small{color:var(--text-light);font-size:0.75rem}
+.custo-fixo-item input{max-width:150px;text-align:right}
+.slider-container{margin:15px 0}
+.slider-container input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:4px;background:linear-gradient(90deg,#2ecc71,#e67e22,#e74c3c);outline:none;padding:0;border:none}
+.slider-container input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.3);cursor:pointer}
+.ficha-card{background:white;border-radius:14px;padding:18px;border:1px solid #eee;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s}
+.ficha-card:hover{box-shadow:0 5px 20px rgba(0,0,0,0.1);transform:translateY(-2px)}
+.ficha-card .fc-info h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+.ficha-card .fc-info .fc-meta{font-size:0.8rem;color:var(--text-light);display:flex;gap:12px;flex-wrap:wrap}
+.ficha-card .fc-info .fc-meta span{display:flex;align-items:center;gap:4px}
+.ficha-card .fc-costs{display:flex;gap:15px;align-items:center}
+.ficha-card .fc-costs .fc-cost-item{text-align:center;min-width:70px}
+.ficha-card .fc-costs .fc-cost-item .fc-cost-val{font-size:1rem;font-weight:700}
+.ficha-card .fc-costs .fc-cost-item .fc-cost-label{font-size:0.65rem;color:var(--text-light)}
+.ficha-card .fc-actions{display:flex;gap:6px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:600}
+.badge-frito{background:#fff3e0;color:#e67e22}
+.badge-assado{background:#e8f5e9;color:#27ae60}
+.badge-congelado{background:#e3f2fd;color:#2196f3}
+.config-section{margin-bottom:25px}
+.toast{position:fixed;bottom:30px;right:30px;padding:15px 25px;border-radius:12px;color:white;font-weight:600;z-index:1000;animation:toastIn 0.3s;box-shadow:0 5px 20px rgba(0,0,0,0.3)}
+.toast.success{background:linear-gradient(135deg,#27ae60,#2ecc71)}
+.toast.error{background:linear-gradient(135deg,#c0392b,#e74c3c)}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.recheio-card{background:white;border:2px solid #eee;border-radius:14px;padding:18px;margin-bottom:15px;transition:all 0.3s}
+.recheio-card.editing{border-color:var(--primary);box-shadow:0 0 0 3px rgba(230,126,34,0.1)}
+.recheio-card h3{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+@media(max-width:768px){
+.top-header{flex-wrap:wrap;gap:10px;padding:10px 15px}
+.header-stats{flex-wrap:wrap;gap:8px}
+nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
+.page{padding:15px}
+.ficha-card{flex-direction:column;gap:15px;align-items:flex-start}
+.ficha-card .fc-costs{width:100%;justify-content:space-around}
+.form-row{grid-template-columns:1fr}
+.grid-4{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="top-header">
+<h1>ðŸ¥Ÿ Salgado<span>Control</span></h1>
+<div class="header-stats">
+<div class="header-stat"><span class="val" id="hInsumos">0</span>Insumos</div>
+<div class="header-stat"><span class="val" id="hFichas">0</span>Fichas</div>
+<div class="header-stat"><span class="val" id="hCustoFixo">R$ 0.00</span>Custo Fixo</div>
+</div>
+<button class="btn-logout" onclick="logout()">ðŸšª Sair</button>
+</div>
+<nav id="mainNav">
+<button class="active" onclick="showPage('dashboard',this)">ðŸ“Š Dashboard</button>
+<button onclick="showPage('insumos',this)">ðŸ“¦ Insumos</button>
+<button onclick="showPage('fichas',this)">ðŸ“‹ Fichas</button>
+<button onclick="showPage('novaFicha',this)">âž• Nova Ficha</button>
+<button onclick="showPage('massa',this)">ðŸ¥– Massa</button>
+<button onclick="showPage('recheio',this)">ðŸ§† Recheios</button>
+<button onclick="showPage('custos',this)">ðŸ’¼ Custos Fixos</button>
+<button onclick="showPage('precificar',this)">ðŸ’° Precificar</button>
+<button onclick="showPage('config',this)">âš™ï¸ Config</button>
+</nav>
+
+<!-- DASHBOARD -->
+<div class="page active" id="pg-dashboard">
+<div class="card"><div class="card-header orange">ðŸ“Š VisÃ£o Geral</div>
+<div class="grid-4" id="dashCounters">
+<div class="stat-card green"><div class="stat-val" id="dPeq">0</div><div class="stat-label">Pequenos</div></div>
+<div class="stat-card blue"><div class="stat-val" id="dMed">0</div><div class="stat-label">MÃ©dios</div></div>
+<div class="stat-card orange"><div class="stat-val" id="dGra">0</div><div class="stat-label">Grandes</div></div>
+<div class="stat-card purple"><div class="stat-val" id="dFes">0</div><div class="stat-label">Festa</div></div>
+</div>
+<div class="grid-4" style="margin-top:15px" id="dashStats">
+<div class="stat-card"><div class="stat-label">Insumos</div><div class="stat-val blue" id="dsIns">0</div></div>
+<div class="stat-card"><div class="stat-label">Fichas</div><div class="stat-val green" id="dsFic">0</div></div>
+<div class="stat-card"><div class="stat-label">Custo Fixo/Cento</div><div class="stat-val red" id="dsCF">R$ 0.00</div></div>
+<div class="stat-card"><div class="stat-label">Massa Base</div><div class="stat-val orange" id="dsMassa">R$ 0.00</div></div>
+</div></div>
+<div class="card"><div class="card-header green">ðŸ† Top 5 Mais Lucrativos</div>
+<div id="topLucro"><div class="empty-state"><div class="icon">ðŸ“‹</div>Cadastre fichas</div></div>
+</div></div>
+
+<!-- INSUMOS -->
+<div class="page" id="pg-insumos">
+<div class="card"><div class="card-header orange">ðŸ“¦ Gerenciar Insumos</div>
+<div class="card" style="background:#f8f9fa;border:2px dashed #ddd">
+<h3 style="margin-bottom:15px">ðŸ“¦ Novo Insumo</h3>
+<div class="form-row">
+<div class="form-group"><label>Nome</label><input id="insNome" placeholder="Ex: Farinha de trigo"></div>
+<div class="form-group"><label>Categoria</label><select id="insCat"><option>Massas</option><option>Recheios</option><option>Frituras</option><option>Temperos</option><option>Embalagens</option><option>Outros</option></select></div>
+<div class="form-group"><label>Unidade</label><select id="insUni"><option>kg</option><option>g</option><option>L</option><option>ml</option><option>un</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Qtd por Embalagem</label><input id="insQtd" type="number" step="any" placeholder="Ex: 1"></div>
+<div class="form-group"><label>PreÃ§o da Embalagem (R$)</label><input id="insPreco" type="number" step="0.01" placeholder="Ex: 5.90"></div>
+</div>
+<button class="btn btn-primary" onclick="salvarInsumo()">ðŸ’¾ Salvar Insumo</button>
+<button class="btn btn-gray" onclick="limparFormInsumo()">ðŸ§¹ Limpar</button>
+<input type="hidden" id="insEditId" value="">
+</div>
+<div class="search-box"><input id="insBusca" placeholder="Buscar insumo..." oninput="renderInsumos()"></div>
+<div id="insumosLista"></div>
+</div></div>
+
+<!-- FICHAS -->
+<div class="page" id="pg-fichas">
+<div class="card"><div class="card-header orange">ðŸ“‹ Fichas TÃ©cnicas</div>
+<div class="search-box"><input id="ficBusca" placeholder="Buscar ficha..." oninput="renderFichas()"></div>
+<div class="filter-pills" id="ficFiltros">
+<button class="pill active" onclick="filtrarFichas('todas',this)">Todas <span class="count" id="fAll">0</span></button>
+<button class="pill" onclick="filtrarFichas('Frito',this)">ðŸ³ Frito <span class="count" id="fFrito">0</span></button>
+<button class="pill" onclick="filtrarFichas('Assado',this)">ðŸ”¥ Assado <span class="count" id="fAssado">0</span></button>
+<button class="pill" onclick="filtrarFichas('Congelado',this)">â„ï¸ Congelado <span class="count" id="fCongelado">0</span></button>
+</div>
+<div id="fichasLista"></div>
+</div></div>
+
+<!-- NOVA FICHA -->
+<div class="page" id="pg-novaFicha">
+<div class="card"><div class="card-header orange">âž• Nova Ficha TÃ©cnica</div>
+<div class="form-row">
+<div class="form-group"><label>Nome do Salgado</label><input id="nfNome" placeholder="Ex: Coxinha de Frango"></div>
+<div class="form-group"><label>Tipo</label><select id="nfTipo"><option>Frito</option><option>Assado</option><option>Congelado</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Categoria</label><select id="nfCat"><option>Coxinha</option><option>Bolinha</option><option>Kibe</option><option>Risole</option><option>Pastel</option><option>Empada</option><option>Enroladinho</option><option>Outro</option></select></div>
+<div class="form-group"><label>Tamanho</label><select id="nfTam"><option>Pequeno</option><option>MÃ©dio</option><option>Grande</option><option>Festa</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Rendimento (unidades por receita)</label><input id="nfRend" type="number" value="100" placeholder="100"></div>
+<div class="form-group"><label>PreÃ§o de Venda (unidade R$)</label><input id="nfPrecoUn" type="number" step="0.01" placeholder="Ex: 5.00" oninput="calcFicha()"></div>
+<div class="form-group"><label>PreÃ§o por Cento (R$)</label><input id="nfPrecoCento" type="number" step="0.01" placeholder="Ex: 350.00" oninput="calcFicha()"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Incluir Massa Base?</label><select id="nfMassa" onchange="calcFicha()"><option value="1">âœ… Sim</option><option value="0">âŒ NÃ£o</option></select></div>
+<div class="form-group"><label>Incluir Recheio Base?</label><select id="nfRecheio" onchange="calcFicha()"><option value="">âŒ NÃ£o</option></select></div>
+</div>
+<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
+<h3 style="margin-bottom:15px">ðŸ§€ Ingredientes Adicionais</h3>
+<div id="nfIngredientes"></div>
+<button class="btn btn-primary btn-sm" onclick="addIngredienteFicha()" style="margin-bottom:15px">+ Ingrediente</button>
+<div class="resumo-box">
+<div style="text-align:center;font-size:1.1rem;font-weight:700">ðŸ“Š Resumo Completo</div>
+<div class="resumo-grid">
+<div class="resumo-item"><div class="r-label">Ingredientes</div><div class="r-val red" id="nfRIng">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Massa</div><div class="r-val blue" id="nfRMassa">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Recheio</div><div class="r-val orange" id="nfRRech">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Custo Fixo</div><div class="r-val yellow" id="nfRCF">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">CUSTO TOTAL</div><div class="r-val red" id="nfRTotal">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val orange" id="nfRUn">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange" id="nfRCento">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">PreÃ§o Venda</div><div class="r-val blue" id="nfRVenda">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">LUCRO REAL</div><div class="r-val green" id="nfRLucro">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">CMV</div><div class="r-val" id="nfRCMV">0%</div><div class="cmv-bar"><div class="cmv-bar-fill" id="nfCMVBar" style="width:0;background:#2ecc71"></div></div></div>
+<div class="resumo-item"><div class="r-label">Margem</div><div class="r-val green" id="nfRMarg">0%</div></div>
+</div></div>
+<div style="display:flex;gap:10px;margin-top:20px">
+<button class="btn btn-green btn-block" onclick="salvarFicha()">ðŸ’¾ Salvar Ficha</button>
+<button class="btn btn-gray" onclick="limparFicha()">ðŸ—‘ï¸ Limpar</button>
+</div>
+<input type="hidden" id="nfEditId" value="">
+</div></div>
+
+<!-- MASSA -->
+<div class="page" id="pg-massa">
+<div class="card"><div class="card-header orange">ðŸ¥– Receita Base da Massa</div>
+<h3 style="margin-bottom:15px">ðŸ“ Ingredientes da Receita</h3>
+<div id="massaIngredientes"></div>
+<button class="btn btn-primary btn-sm" onclick="addIngMassa()" style="margin-bottom:20px">+ Ingrediente</button>
+<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
+<div class="form-group"><label>âš–ï¸ Peso TOTAL dessa receita (em gramas)</label><input id="massaPeso" type="number" value="3000" oninput="calcMassa()" placeholder="Ex: 3000"></div>
+<small style="color:var(--text-light)">Informe a soma de todos os ingredientes em gramas.</small>
+<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
+<h4>ðŸ¥Ÿ Gramas de massa por salgado:</h4>
+<div class="form-row" style="margin-top:10px">
+<div class="form-group"><label>ðŸŸ¢ Pequeno</label><input id="mPeq" type="number" value="20" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>ðŸ”µ MÃ©dio</label><input id="mMed" type="number" value="30" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>ðŸŸ  Grande</label><input id="mGra" type="number" value="40" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>ðŸŸ£ Festa</label><input id="mFes" type="number" value="60" oninput="calcMassa()"><small>gramas</small></div>
+</div>
+<div class="resumo-box">
+<div style="text-align:center;font-size:1.1rem;font-weight:700">ðŸ“Š Resultado do CÃ¡lculo</div>
+<div class="resumo-grid">
+<div class="resumo-item"><div class="r-label">Custo Total da Receita</div><div class="r-val blue" id="mCustoTotal">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Peso Total</div><div class="r-val green" id="mPesoTotal">3000 g</div></div>
+<div class="resumo-item"><div class="r-label">Custo por Grama</div><div class="r-val orange" id="mCustoGrama">R$ 0.0000</div></div>
+</div>
+<div style="text-align:center;margin-top:15px;font-weight:700">ðŸ’° Custo da Massa por Tamanho</div>
+<div class="resumo-grid">
+<div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green" id="mCPeq">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">MÃ©dio</div><div class="r-val blue" id="mCMed">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Grande</div><div class="r-val orange" id="mCGra">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple" id="mCFes">R$ 0.00</div></div>
+</div></div>
+<button class="btn btn-green btn-block" onclick="salvarMassa()" style="margin-top:15px">ðŸ’¾ Salvar Massa</button>
+</div></div>
+
+<!-- RECHEIOS -->
+<div class="page" id="pg-recheio">
+<div class="card"><div class="card-header purple">ðŸ§† Receitas de Recheios Base</div>
+<button class="btn btn-primary" onclick="novoRecheio()" style="margin-bottom:20px">âž• Novo Recheio</button>
+<div id="recheiosLista"></div>
+</div></div>
+
+<!-- CUSTOS FIXOS -->
+<div class="page" id="pg-custos">
+<div class="card"><div class="card-header dark">ðŸ’¼ Custos Fixos Mensais</div>
+<p style="margin-bottom:15px;color:var(--text-light);font-size:0.9rem">Informe seus gastos mensais para calcular o rateio por unidade/cento.</p>
+<div class="form-group"><label>ðŸ“¦ ProduÃ§Ã£o Mensal (unidades)</label><input id="cfProducao" type="number" value="1000" oninput="calcCustos()" placeholder="Ex: 1000"></div>
+<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
+<div id="custosFixosLista"></div>
+<div class="resumo-box" style="margin-top:20px">
+<div class="resumo-grid">
+<div class="resumo-item"><div class="r-label">Total Mensal</div><div class="r-val red" id="cfTotal">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val orange" id="cfUnidade">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val yellow" id="cfCento">R$ 0.00</div></div>
+</div></div>
+<button class="btn btn-green btn-block" onclick="salvarCustos()" style="margin-top:15px">ðŸ’¾ Salvar Custos</button>
+</div></div>
+
+<!-- PRECIFICAR -->
+<div class="page" id="pg-precificar">
+<div class="card" style="background:#e8f5e9;border:2px solid #c8e6c9;margin-bottom:20px">
+<span>ðŸ’° Use as calculadoras para encontrar o preÃ§o ideal. CMV recomendado: <strong>25% a 35%</strong></span>
+</div>
+<div class="grid-2">
+<div class="card"><div class="card-header orange">ðŸ“Š Calcular por CMV</div>
+<div class="form-group"><label>Custo Total (R$)</label><input id="prCusto" type="number" step="0.01" value="18.00" oninput="calcPrec()"></div>
+<div class="slider-container">
+<label>CMV Desejado: <span id="prCMVVal" style="color:var(--primary);font-weight:700">30%</span></label>
+<input type="range" id="prCMV" min="15" max="60" value="30" oninput="calcPrec()">
+</div>
+<div class="resumo-box">
+<div style="text-align:center"><div class="r-label">PreÃ§o Sugerido</div><div class="r-val green" style="font-size:2rem" id="prPreco">R$ 0,00</div><div class="r-label" id="prLucro">Lucro: R$ 0,00</div></div>
+</div></div>
+<div class="card"><div class="card-header purple">ðŸ“‹ Precificar Ficha</div>
+<div class="form-group"><label>Selecione uma Ficha</label><select id="prFicha" onchange="precFicha()"><option value="">-- Selecione --</option></select></div>
+<div id="prFichaResult"></div>
+</div></div></div>
+
+<!-- CONFIG -->
+<div class="page" id="pg-config">
+<div class="card"><div class="card-header dark">ðŸ” Alterar Credenciais de Login</div>
+<div class="form-row">
+<div class="form-group"><label>Novo UsuÃ¡rio</label><input id="cfgUser" placeholder="admin"></div>
+<div class="form-group"><label>Nova Senha</label><input id="cfgPass" type="password" placeholder="****"></div>
+</div>
+<button class="btn btn-primary" onclick="salvarCredenciais()">ðŸ’¾ Salvar Credenciais</button>
+</div>
+<div class="card"><div class="card-header green">ðŸ“¤ Exportar / Importar Dados</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn btn-green" onclick="exportarDados()">ðŸ“¥ Exportar JSON</button>
+<button class="btn btn-primary" onclick="document.getElementById('importFile').click()">ðŸ“¤ Importar JSON</button>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="importarDados(event)">
+<button class="btn btn-red" onclick="limparTudo()">ðŸ—‘ï¸ Limpar Tudo</button>
+</div></div></div>
+
+<div id="toastContainer"></div>
+<script>
+// ===== AUTH =====
+(function(){const s=localStorage.getItem('salgadoControlSession');if(!s){window.location.href='index.html';return}try{const p=JSON.parse(s);if(!p.logged)window.location.href='index.html'}catch(e){window.location.href='index.html'}})();
+function logout(){localStorage.removeItem('salgadoControlSession');window.location.href='index.html'}
+
+// ===== DATA =====
+let DB={insumos:[],fichas:[],massa:{ingredientes:[],pesoTotal:3000,gramas:{Pequeno:20,Medio:30,Grande:40,Festa:60}},recheios:[],custos:{producao:1000,itens:{aluguel:0,energia:0,gas:0,agua:0,internet:0,funcionarios:0,combustivel:0,embalagens:0,marketing:0,contador:0,oleo:0,outros:0}}};
+function loadDB(){try{const d=localStorage.getItem('salgadoControlDB');if(d)DB=JSON.parse(d)}catch(e){}}
+function saveDB(){localStorage.setItem('salgadoControlDB',JSON.stringify(DB))}
+loadDB();
+
+// ===== NAV =====
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('pg-'+id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(id==='dashboard')updateDashboard();if(id==='fichas')renderFichas();if(id==='novaFicha')initNovaFicha();if(id==='massa')initMassa();if(id==='recheio')renderRecheios();if(id==='custos')initCustos();if(id==='precificar')initPrec();if(id==='insumos')renderInsumos()}
+function toast(msg,type='success'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;document.getElementById('toastContainer').appendChild(t);setTimeout(()=>t.remove(),3000)}
+
+// ===== HEADER =====
+function updateHeader(){document.getElementById('hInsumos').textContent=DB.insumos.length;document.getElementById('hFichas').textContent=DB.fichas.length;const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);document.getElementById('hCustoFixo').textContent='R$ '+total.toFixed(2)}
+updateHeader();
+
+// ===== INSUMOS =====
+function getInsumoCustoPorUnidade(ins){return(parseFloat(ins.preco)||0)/(parseFloat(ins.qtdEmb)||1)}
+function salvarInsumo(){const n=document.getElementById('insNome').value.trim();if(!n){toast('Informe o nome!','error');return}const ins={id:document.getElementById('insEditId').value||Date.now().toString(),nome:n,categoria:document.getElementById('insCat').value,unidade:document.getElementById('insUni').value,qtdEmb:parseFloat(document.getElementById('insQtd').value)||1,preco:parseFloat(document.getElementById('insPreco').value)||0};const idx=DB.insumos.findIndex(i=>i.id===ins.id);if(idx>=0)DB.insumos[idx]=ins;else DB.insumos.push(ins);saveDB();updateHeader();renderInsumos();limparFormInsumo();toast('Insumo salvo!')}
+function limparFormInsumo(){['insNome','insQtd','insPreco'].forEach(id=>document.getElementById(id).value='');document.getElementById('insEditId').value='';document.getElementById('insCat').selectedIndex=0;document.getElementById('insUni').selectedIndex=0}
+function editarInsumo(id){const ins=DB.insumos.find(i=>i.id===id);if(!ins)return;document.getElementById('insNome').value=ins.nome;document.getElementById('insCat').value=ins.categoria;document.getElementById('insUni').value=ins.unidade;document.getElementById('insQtd').value=ins.qtdEmb;document.getElementById('insPreco').value=ins.preco;document.getElementById('insEditId').value=ins.id;window.scrollTo({top:0,behavior:'smooth'})}
+function deletarInsumo(id){if(!confirm('Excluir este insumo?'))return;DB.insumos=DB.insumos.filter(i=>i.id!==id);saveDB();updateHeader();renderInsumos();toast('Insumo excluÃ­do!')}
+function renderInsumos(){const busca=(document.getElementById('insBusca')?.value||'').toLowerCase();const lista=DB.insumos.filter(i=>i.nome.toLowerCase().includes(busca));const el=document.getElementById('insumosLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ“¦</div>Nenhum insumo cadastrado</div>';return}
+let html='<table><thead><tr><th>Nome</th><th>Categoria</th><th>Unidade</th><th>Qtd Emb</th><th>PreÃ§o Emb</th><th>PreÃ§o/Uni</th><th>AÃ§Ãµes</th></tr></thead><tbody>';
+lista.forEach(i=>{const cpu=getInsumoCustoPorUnidade(i);html+=`<tr><td><strong>${i.nome}</strong></td><td>${i.categoria}</td><td>${i.unidade}</td><td>${i.qtdEmb}</td><td>R$ ${i.preco.toFixed(2)}</td><td style="color:var(--primary);font-weight:700">R$ ${cpu.toFixed(4)}</td><td><button class="btn btn-primary btn-sm" onclick="editarInsumo('${i.id}')">âœï¸</button> <button class="btn btn-red btn-sm" onclick="deletarInsumo('${i.id}')">ðŸ—‘ï¸</button></td></tr>`});
+html+='</tbody></table>';el.innerHTML=html}
+renderInsumos();
+
+// ===== INSUMO SELECT BUILDER =====
+function buildInsumoOptions(){return'<option value="">Selecione...</option>'+DB.insumos.map(i=>`<option value="${i.id}">${i.nome} (${i.unidade})</option>`).join('')}
+
+// ===== MASSA =====
+function initMassa(){const el=document.getElementById('massaIngredientes');if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];el.innerHTML='';DB.massa.ingredientes.forEach((ing,idx)=>{el.innerHTML+=buildIngRow('massa',idx,ing)});document.getElementById('massaPeso').value=DB.massa.pesoTotal||3000;document.getElementById('mPeq').value=DB.massa.gramas?.Pequeno||20;document.getElementById('mMed').value=DB.massa.gramas?.Medio||30;document.getElementById('mGra').value=DB.massa.gramas?.Grande||40;document.getElementById('mFes').value=DB.massa.gramas?.Festa||60;calcMassa()}
+function buildIngRow(prefix,idx,ing){const opts=buildInsumoOptions();return`<div class="ingredient-row" id="${prefix}Row${idx}"><select onchange="${prefix}IngChange(${idx},this)">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="${prefix}QtdChange(${idx},this)"><span class="cost" id="${prefix}Cost${idx}">R$ 0</span><button class="btn-remove" onclick="remove${prefix.charAt(0).toUpperCase()+prefix.slice(1)}Ing(${idx})">âœ•</button></div>`.replace(`value="${ing.insumoId}"`,ing.insumoId?`value="${ing.insumoId}" selected`:`value="${ing.insumoId}"`)}
+function addIngMassa(){DB.massa.ingredientes.push({insumoId:'',qtd:0});initMassa()}
+function removeMassaIng(idx){DB.massa.ingredientes.splice(idx,1);if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];initMassa()}
+function massaIngChange(idx,sel){DB.massa.ingredientes[idx].insumoId=sel.value;calcMassa()}
+function massaQtdChange(idx,inp){DB.massa.ingredientes[idx].qtd=parseFloat(inp.value)||0;calcMassa()}
+function calcMassa(){let custoTotal=0;DB.massa.ingredientes.forEach((ing,idx)=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;const cpu=getInsumoCustoPorUnidade(ins);const custo=cpu*(parseFloat(ing.qtd)||0);custoTotal+=custo;const el=document.getElementById('massaCost'+idx);if(el)el.textContent='R$ '+custo.toFixed(2)});
+const peso=parseFloat(document.getElementById('massaPeso')?.value)||1;const cpg=custoTotal/peso;
+const gP=parseFloat(document.getElementById('mPeq')?.value)||0;const gM=parseFloat(document.getElementById('mMed')?.value)||0;const gG=parseFloat(document.getElementById('mGra')?.value)||0;const gF=parseFloat(document.getElementById('mFes')?.value)||0;
+document.getElementById('mCustoTotal').textContent='R$ '+custoTotal.toFixed(2);document.getElementById('mPesoTotal').textContent=peso+' g';document.getElementById('mCustoGrama').textContent='R$ '+cpg.toFixed(4);
+document.getElementById('mCPeq').textContent='R$ '+(cpg*gP).toFixed(4);document.getElementById('mCMed').textContent='R$ '+(cpg*gM).toFixed(4);document.getElementById('mCGra').textContent='R$ '+(cpg*gG).toFixed(4);document.getElementById('mCFes').textContent='R$ '+(cpg*gF).toFixed(4);
+// Fix select values
+DB.massa.ingredientes.forEach((ing,idx)=>{const sel=document.querySelector(`#massaRow${idx} select`);if(sel&&ing.insumoId)sel.value=ing.insumoId})}
+function salvarMassa(){DB.massa.pesoTotal=parseFloat(document.getElementById('massaPeso').value)||3000;DB.massa.gramas={Pequeno:parseFloat(document.getElementById('mPeq').value)||20,Medio:parseFloat(document.getElementById('mMed').value)||30,Grande:parseFloat(document.getElementById('mGra').value)||40,Festa:parseFloat(document.getElementById('mFes').value)||60};saveDB();toast('Massa salva!')}
+function getMassaCustoPorTamanho(tam){let custoTotal=0;DB.massa.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const peso=DB.massa.pesoTotal||1;const cpg=custoTotal/peso;const tamMap={Pequeno:'Pequeno','MÃ©dio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};const g=DB.massa.gramas?.[tamMap[tam]||tam]||0;return cpg*g}
+
+// ===== RECHEIOS =====
+function novoRecheio(){DB.recheios.push({id:Date.now().toString(),nome:'Novo Recheio',ingredientes:[{insumoId:'',qtd:0}],pesoTotal:1000,gramas:{Pequeno:15,Medio:20,Grande:30,Festa:45}});saveDB();renderRecheios()}
+function renderRecheios(){const el=document.getElementById('recheiosLista');if(!DB.recheios.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ§†</div>Nenhum recheio cadastrado</div>';updateRecheioSelect();return}
+let html='';DB.recheios.forEach((r,ri)=>{let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);
+html+=`<div class="recheio-card"><h3>ðŸ§† <input value="${r.nome}" style="border:none;font-size:1rem;font-weight:700;background:transparent;padding:0;flex:1" onchange="DB.recheios[${ri}].nome=this.value;saveDB();updateRecheioSelect()"> <button class="btn btn-red btn-sm" onclick="if(confirm('Excluir?')){DB.recheios.splice(${ri},1);saveDB();renderRecheios()}">ðŸ—‘ï¸</button></h3>`;
+r.ingredientes.forEach((ing,ii)=>{const opts=buildInsumoOptions();html+=`<div class="ingredient-row"><select onchange="DB.recheios[${ri}].ingredientes[${ii}].insumoId=this.value;saveDB();renderRecheios()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="DB.recheios[${ri}].ingredientes[${ii}].qtd=parseFloat(this.value)||0;saveDB();renderRecheios()"><span class="cost">R$ ${(()=>{if(!ing.insumoId)return'0';const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return'0';return(getInsumoCustoPorUnidade(ins)*(ing.qtd||0)).toFixed(2)})()}</span><button class="btn-remove" onclick="DB.recheios[${ri}].ingredientes.splice(${ii},1);if(!DB.recheios[${ri}].ingredientes.length)DB.recheios[${ri}].ingredientes=[{insumoId:'',qtd:0}];saveDB();renderRecheios()">âœ•</button></div>`});
+html+=`<button class="btn btn-primary btn-sm" onclick="DB.recheios[${ri}].ingredientes.push({insumoId:'',qtd:0});saveDB();renderRecheios()" style="margin:10px 0">+ Ingrediente</button>`;
+html+=`<div class="form-row"><div class="form-group"><label>Peso Total (g)</label><input type="number" value="${r.pesoTotal||1000}" onchange="DB.recheios[${ri}].pesoTotal=parseFloat(this.value)||1000;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Pequeno</label><input type="number" value="${r.gramas?.Pequeno||15}" onchange="DB.recheios[${ri}].gramas.Pequeno=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/MÃ©dio</label><input type="number" value="${r.gramas?.Medio||20}" onchange="DB.recheios[${ri}].gramas.Medio=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Grande</label><input type="number" value="${r.gramas?.Grande||30}" onchange="DB.recheios[${ri}].gramas.Grande=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Festa</label><input type="number" value="${r.gramas?.Festa||45}" onchange="DB.recheios[${ri}].gramas.Festa=parseFloat(this.value)||0;saveDB();renderRecheios()"></div></div>`;
+html+=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue">R$ ${custoTotal.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Custo/g</div><div class="r-val orange">R$ ${cpg.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Peq</div><div class="r-val green">R$ ${(cpg*(r.gramas?.Pequeno||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">MÃ©d</div><div class="r-val blue">R$ ${(cpg*(r.gramas?.Medio||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Gra</div><div class="r-val orange">R$ ${(cpg*(r.gramas?.Grande||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple">R$ ${(cpg*(r.gramas?.Festa||0)).toFixed(4)}</div></div></div></div></div>`});
+el.innerHTML=html;
+// set select values
+DB.recheios.forEach((r,ri)=>{r.ingredientes.forEach((ing,ii)=>{const sels=el.querySelectorAll(`.recheio-card:nth-child(${ri+1}) select`);if(sels[ii]&&ing.insumoId)sels[ii].value=ing.insumoId})});
+updateRecheioSelect()}
+function getRecheioObj(id){return DB.recheios.find(r=>r.id===id)}
+function getRecheioCustoPorTamanho(recheioId,tam){const r=getRecheioObj(recheioId);if(!r)return 0;let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);const tamMap={Pequeno:'Pequeno','MÃ©dio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};return cpg*(r.gramas?.[tamMap[tam]||tam]||0)}
+function updateRecheioSelect(){const sel=document.getElementById('nfRecheio');if(!sel)return;const val=sel.value;sel.innerHTML='<option value="">âŒ NÃ£o</option>';DB.recheios.forEach(r=>{sel.innerHTML+=`<option value="${r.id}">${r.nome}</option>`});sel.value=val}
+
+// ===== CUSTOS FIXOS =====
+const CUSTOS_ITEMS=[{key:'aluguel',nome:'Aluguel',desc:'Aluguel do espaÃ§o',icon:'ðŸ '},{key:'energia',nome:'Energia',desc:'Conta de luz',icon:'âš¡'},{key:'gas',nome:'GÃ¡s',desc:'GÃ¡s de cozinha',icon:'ðŸ”¥'},{key:'agua',nome:'Ãgua',desc:'Conta de Ã¡gua',icon:'ðŸ’§'},{key:'internet',nome:'Internet',desc:'Internet/Telefone',icon:'ðŸ“¶'},{key:'funcionarios',nome:'FuncionÃ¡rios',desc:'SalÃ¡rios + encargos',icon:'ðŸ‘©â€ðŸ³'},{key:'combustivel',nome:'CombustÃ­vel',desc:'Gasolina/Transporte',icon:'â›½'},{key:'embalagens',nome:'Embalagens',desc:'Caixas, sacolas',icon:'ðŸ“¦'},{key:'marketing',nome:'Marketing',desc:'AnÃºncios',icon:'ðŸ“Š'},{key:'contador',nome:'Contador',desc:'ServiÃ§os contÃ¡beis',icon:'ðŸ“‹'},{key:'oleo',nome:'Ã“leo de Fritura',desc:'Custo mensal de Ã³leo',icon:'ðŸ›¢ï¸'},{key:'outros',nome:'Outros',desc:'Despesas diversas',icon:'ðŸ’¸'}];
+function initCustos(){document.getElementById('cfProducao').value=DB.custos.producao||1000;const el=document.getElementById('custosFixosLista');let html='';CUSTOS_ITEMS.forEach(item=>{html+=`<div class="custo-fixo-item"><div class="cf-icon">${item.icon}</div><div class="cf-info"><h4>${item.nome}</h4><small>${item.desc}</small></div><input type="number" step="0.01" value="${DB.custos.itens[item.key]||0}" oninput="DB.custos.itens['${item.key}']=parseFloat(this.value)||0;calcCustos()"></div>`});el.innerHTML=html;calcCustos()}
+function calcCustos(){const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const prod=parseFloat(document.getElementById('cfProducao')?.value)||1;DB.custos.producao=prod;document.getElementById('cfTotal').textContent='R$ '+total.toFixed(2);document.getElementById('cfUnidade').textContent='R$ '+(total/prod).toFixed(4);document.getElementById('cfCento').textContent='R$ '+(total/prod*100).toFixed(2);updateHeader()}
+function salvarCustos(){DB.custos.producao=parseFloat(document.getElementById('cfProducao').value)||1000;saveDB();updateHeader();toast('Custos salvos!')}
+function getCustoFixoPorUn(){const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);return total/(DB.custos.producao||1)}
+
+// ===== NOVA FICHA =====
+let nfIngs=[];
+function initNovaFicha(){if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();updateRecheioSelect();calcFicha()}
+function renderNFIngs(){const el=document.getElementById('nfIngredientes');let html='';nfIngs.forEach((ing,idx)=>{const opts=buildInsumoOptions();const ins=ing.insumoId?DB.insumos.find(i=>i.id===ing.insumoId):null;const cpu=ins?getInsumoCustoPorUnidade(ins):0;const custo=cpu*(ing.qtd||0);
+html+=`<div class="ingredient-row"><select onchange="nfIngs[${idx}].insumoId=this.value;renderNFIngs();calcFicha()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="nfIngs[${idx}].qtd=parseFloat(this.value)||0;calcFicha()"><span class="cost">R$ ${custo.toFixed(2)}</span><button class="btn-remove" onclick="nfIngs.splice(${idx},1);if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()">âœ•</button></div>`});el.innerHTML=html;
+nfIngs.forEach((ing,idx)=>{const sel=el.querySelectorAll('.ingredient-row select')[idx];if(sel&&ing.insumoId)sel.value=ing.insumoId})}
+function addIngredienteFicha(){nfIngs.push({insumoId:'',qtd:0});renderNFIngs()}
+function calcFicha(){let custoIng=0;nfIngs.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoIng+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});
+const tam=document.getElementById('nfTam')?.value||'MÃ©dio';const rend=parseFloat(document.getElementById('nfRend')?.value)||1;const precoUn=parseFloat(document.getElementById('nfPrecoUn')?.value)||0;const precoCento=parseFloat(document.getElementById('nfPrecoCento')?.value)||0;const usarMassa=document.getElementById('nfMassa')?.value==='1';const recheioId=document.getElementById('nfRecheio')?.value;
+let custoMassa=0;if(usarMassa)custoMassa=getMassaCustoPorTamanho(tam)*rend;
+let custoRecheio=0;if(recheioId)custoRecheio=getRecheioCustoPorTamanho(recheioId,tam)*rend;
+const custoFixoTotal=getCustoFixoPorUn()*rend;
+const custoTotal=custoIng+custoMassa+custoRecheio+custoFixoTotal;const custoUn=custoTotal/rend;const custoCento=custoUn*100;
+const precoRef=precoUn||precoCento/100;const lucro=precoRef-custoUn;const cmv=precoRef>0?(custoUn/precoRef*100):0;const margem=precoRef>0?(lucro/precoRef*100):0;
+document.getElementById('nfRIng').textContent='R$ '+custoIng.toFixed(2);document.getElementById('nfRMassa').textContent='R$ '+custoMassa.toFixed(2);document.getElementById('nfRRech').textContent='R$ '+custoRecheio.toFixed(2);document.getElementById('nfRCF').textContent='R$ '+custoFixoTotal.toFixed(2);document.getElementById('nfRTotal').textContent='R$ '+custoTotal.toFixed(2);document.getElementById('nfRUn').textContent='R$ '+custoUn.toFixed(4);document.getElementById('nfRCento').textContent='R$ '+custoCento.toFixed(2);document.getElementById('nfRVenda').textContent='R$ '+precoRef.toFixed(2);document.getElementById('nfRLucro').textContent='R$ '+lucro.toFixed(2);document.getElementById('nfRCMV').textContent=cmv.toFixed(1)+'%';document.getElementById('nfRMarg').textContent=margem.toFixed(1)+'%';
+document.getElementById('nfRLucro').className='r-val '+(lucro>=0?'green':'red');document.getElementById('nfRCMV').className='r-val '+(cmv<=30?'green':cmv<=40?'orange':'red');
+const bar=document.getElementById('nfCMVBar');bar.style.width=Math.min(cmv,100)+'%';bar.style.background=cmv<=30?'#2ecc71':cmv<=40?'#e67e22':'#e74c3c'}
+function salvarFicha(){const nome=document.getElementById('nfNome').value.trim();if(!nome){toast('Informe o nome!','error');return}
+const ficha={id:document.getElementById('nfEditId').value||Date.now().toString(),nome,tipo:document.getElementById('nfTipo').value,categoria:document.getElementById('nfCat').value,tamanho:document.getElementById('nfTam').value,rendimento:parseFloat(document.getElementById('nfRend').value)||100,precoUn:parseFloat(document.getElementById('nfPrecoUn').value)||0,precoCento:parseFloat(document.getElementById('nfPrecoCento').value)||0,usarMassa:document.getElementById('nfMassa').value==='1',recheioId:document.getElementById('nfRecheio').value,ingredientes:JSON.parse(JSON.stringify(nfIngs))};
+const idx=DB.fichas.findIndex(f=>f.id===ficha.id);if(idx>=0)DB.fichas[idx]=ficha;else DB.fichas.push(ficha);saveDB();updateHeader();limparFicha();toast('Ficha salva!');showPage('fichas',document.querySelectorAll('nav button')[2])}
+function limparFicha(){['nfNome','nfPrecoUn','nfPrecoCento'].forEach(id=>document.getElementById(id).value='');document.getElementById('nfRend').value='100';document.getElementById('nfEditId').value='';document.getElementById('nfTipo').selectedIndex=0;document.getElementById('nfCat').selectedIndex=0;document.getElementById('nfTam').selectedIndex=0;document.getElementById('nfMassa').selectedIndex=0;document.getElementById('nfRecheio').selectedIndex=0;nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()}
+
+// ===== FICHAS LISTA =====
+let ficFiltro='todas';
+function filtrarFichas(f,btn){ficFiltro=f;document.querySelectorAll('#ficFiltros .pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');renderFichas()}
+function getFichaCustos(f){let custoIng=0;(f.ingredientes||[]).forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoIng+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});
+const rend=f.rendimento||1;let custoMassa=f.usarMassa?getMassaCustoPorTamanho(f.tamanho)*rend:0;let custoRecheio=f.recheioId?getRecheioCustoPorTamanho(f.recheioId,f.tamanho)*rend:0;const custoFixo=getCustoFixoPorUn()*rend;const total=custoIng+custoMassa+custoRecheio+custoFixo;const custoUn=total/rend;const precoRef=f.precoUn||f.precoCento/100;const lucro=precoRef-custoUn;const cmv=precoRef>0?custoUn/precoRef*100:0;const margem=precoRef>0?lucro/precoRef*100:0;return{custoIng,custoMassa,custoRecheio,custoFixo,total,custoUn,custoCento:custoUn*100,precoRef,lucro,cmv,margem}}
+function renderFichas(){const busca=(document.getElementById('ficBusca')?.value||'').toLowerCase();let lista=DB.fichas.filter(f=>f.nome.toLowerCase().includes(busca));
+const counts={todas:DB.fichas.length,Frito:DB.fichas.filter(f=>f.tipo==='Frito').length,Assado:DB.fichas.filter(f=>f.tipo==='Assado').length,Congelado:DB.fichas.filter(f=>f.tipo==='Congelado').length};
+document.getElementById('fAll').textContent=counts.todas;document.getElementById('fFrito').textContent=counts.Frito;document.getElementById('fAssado').textContent=counts.Assado;document.getElementById('fCongelado').textContent=counts.Congelado;
+if(ficFiltro!=='todas')lista=lista.filter(f=>f.tipo===ficFiltro);
+const el=document.getElementById('fichasLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ“‹</div>Nenhuma ficha</div>';return}
+let html='';lista.forEach(f=>{const c=getFichaCustos(f);const badgeClass=f.tipo==='Frito'?'badge-frito':f.tipo==='Assado'?'badge-assado':'badge-congelado';
+html+=`<div class="ficha-card"><div class="fc-info"><h3>ðŸ¥Ÿ ${f.nome}</h3><div class="fc-meta"><span class="badge ${badgeClass}">${f.tipo}</span><span>ðŸ“ ${f.categoria}</span><span>ðŸ“ ${f.tamanho}</span><span>ðŸ“¦ ${f.rendimento} un</span></div></div><div class="fc-costs"><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--red)">R$ ${c.custoUn.toFixed(2)}</div><div class="fc-cost-label">Custo/Un</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--primary)">R$ ${c.custoCento.toFixed(2)}</div><div class="fc-cost-label">Custo/100</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:${c.cmv<=30?'var(--green)':c.cmv<=40?'var(--primary)':'var(--red)'}">${c.cmv.toFixed(1)}%</div><div class="fc-cost-label">CMV</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--green)">R$ ${c.lucro.toFixed(2)}</div><div class="fc-cost-label">Lucro</div></div></div><div class="fc-actions"><button class="btn btn-primary btn-sm" onclick="editFicha('${f.id}')">âœï¸</button><button class="btn btn-green btn-sm" onclick="dupFicha('${f.id}')">ðŸ“‹</button><button class="btn btn-red btn-sm" onclick="delFicha('${f.id}')">ðŸ—‘ï¸</button></div></div>`});el.innerHTML=html}
+function editFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;document.getElementById('nfEditId').value=f.id;document.getElementById('nfNome').value=f.nome;document.getElementById('nfTipo').value=f.tipo;document.getElementById('nfCat').value=f.categoria;document.getElementById('nfTam').value=f.tamanho;document.getElementById('nfRend').value=f.rendimento;document.getElementById('nfPrecoUn').value=f.precoUn;document.getElementById('nfPrecoCento').value=f.precoCento;document.getElementById('nfMassa').value=f.usarMassa?'1':'0';nfIngs=JSON.parse(JSON.stringify(f.ingredientes||[{insumoId:'',qtd:0}]));showPage('novaFicha',document.querySelectorAll('nav button')[3]);setTimeout(()=>{document.getElementById('nfRecheio').value=f.recheioId||'';renderNFIngs();calcFicha()},100)}
+function dupFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;const n=JSON.parse(JSON.stringify(f));n.id=Date.now().toString();n.nome=f.nome+' (cÃ³pia)';DB.fichas.push(n);saveDB();updateHeader();renderFichas();toast('Ficha duplicada!')}
+function delFicha(id){if(!confirm('Excluir esta ficha?'))return;DB.fichas=DB.fichas.filter(f=>f.id!==id);saveDB();updateHeader();renderFichas();toast('Ficha excluÃ­da!')}
+
+// ===== DASHBOARD =====
+function updateDashboard(){const counts={Pequeno:0,Medio:0,Grande:0,Festa:0};DB.fichas.forEach(f=>{const t=f.tamanho==='MÃ©dio'?'Medio':f.tamanho;if(counts[t]!==undefined)counts[t]++});
+document.getElementById('dPeq').textContent=counts.Pequeno;document.getElementById('dMed').textContent=counts.Medio;document.getElementById('dGra').textContent=counts.Grande;document.getElementById('dFes').textContent=counts.Festa;
+document.getElementById('dsIns').textContent=DB.insumos.length;document.getElementById('dsFic').textContent=DB.fichas.length;
+const cfTotal=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const cfProd=DB.custos.producao||1;document.getElementById('dsCF').textContent='R$ '+(cfTotal/cfProd*100).toFixed(2);
+const mCusto=getMassaCustoPorTamanho('MÃ©dio');document.getElementById('dsMassa').textContent='R$ '+mCusto.toFixed(4);
+// Top 5
+const ranked=DB.fichas.map(f=>{const c=getFichaCustos(f);return{...f,...c}}).sort((a,b)=>b.lucro-a.lucro).slice(0,5);
+const topEl=document.getElementById('topLucro');if(!ranked.length){topEl.innerHTML='<div class="empty-state"><div class="icon">ðŸ“‹</div>Cadastre fichas</div>';return}
+let html='<table><thead><tr><th>Salgado</th><th>Custo/Un</th><th>PreÃ§o</th><th>Lucro</th><th>CMV</th></tr></thead><tbody>';ranked.forEach(f=>{html+=`<tr><td><strong>${f.nome}</strong></td><td>R$ ${f.custoUn.toFixed(2)}</td><td>R$ ${f.precoRef.toFixed(2)}</td><td style="color:var(--green);font-weight:700">R$ ${f.lucro.toFixed(2)}</td><td style="color:${f.cmv<=30?'var(--green)':f.cmv<=40?'var(--primary)':'var(--red)'}">${f.cmv.toFixed(1)}%</td></tr>`});html+='</tbody></table>';topEl.innerHTML=html}
+updateDashboard();
+
+// ===== PRECIFICAR =====
+function initPrec(){const sel=document.getElementById('prFicha');sel.innerHTML='<option value="">-- Selecione --</option>';DB.fichas.forEach(f=>{sel.innerHTML+=`<option value="${f.id}">${f.nome}</option>`});calcPrec()}
+function calcPrec(){const custo=parseFloat(document.getElementById('prCusto').value)||0;const cmv=parseFloat(document.getElementById('prCMV').value)||30;document.getElementById('prCMVVal').textContent=cmv+'%';const preco=cmv>0?custo/(cmv/100):0;const lucro=preco-custo;document.getElementById('prPreco').textContent='R$ '+preco.toFixed(2).replace('.',',');document.getElementById('prLucro').textContent='Lucro: R$ '+lucro.toFixed(2).replace('.',',')}
+function precFicha(){const id=document.getElementById('prFicha').value;const el=document.getElementById('prFichaResult');if(!id){el.innerHTML='';return}const f=DB.fichas.find(x=>x.id===id);if(!f){el.innerHTML='';return}const c=getFichaCustos(f);
+el.innerHTML=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val red">R$ ${c.custoUn.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange">R$ ${c.custoCento.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">PreÃ§o Atual</div><div class="r-val blue">R$ ${c.precoRef.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">CMV</div><div class="r-val ${c.cmv<=30?'green':c.cmv<=40?'orange':'red'}">${c.cmv.toFixed(1)}%</div></div><div class="resumo-item"><div class="r-label">Lucro</div><div class="r-val ${c.lucro>=0?'green':'red'}">R$ ${c.lucro.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">PreÃ§o Ideal (30%)</div><div class="r-val green">R$ ${(c.custoUn/0.3).toFixed(2)}</div></div></div></div>`}
+
+// ===== CONFIG =====
+function salvarCredenciais(){const u=document.getElementById('cfgUser').value.trim();const p=document.getElementById('cfgPass').value;if(!u||!p){toast('Preencha usuÃ¡rio e senha!','error');return}localStorage.setItem('salgadoControlCredentials',JSON.stringify({user:u,pass:p}));toast('Credenciais salvas!')}
+function exportarDados(){const data=JSON.stringify(DB,null,2);const blob=new Blob([data],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='salgadocontrol_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('Dados exportados!')}
+function importarDados(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){try{DB=JSON.parse(ev.target.result);saveDB();updateHeader();toast('Dados importados! Recarregando...');setTimeout(()=>location.reload(),1500)}catch(err){toast('Arquivo invÃ¡lido!','error')}};reader.readAsText(file)}
+function limparTudo(){if(!confirm('Tem certeza? Todos os dados serÃ£o apagados!'))return;localStorage.removeItem('salgadoControlDB');location.reload()}
+</script>
+</body>
+</html>
