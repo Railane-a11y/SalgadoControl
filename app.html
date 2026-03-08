@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
@@ -108,24 +108,22 @@ tr:hover{background:rgba(230,126,34,0.05)}
 .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:600}
 .badge-frito{background:#fff3e0;color:#e67e22}
 .badge-assado{background:#e8f5e9;color:#27ae60}
-.badge-congelado{background:#e3f2fd;color:#2196f3}
-.config-section{margin-bottom:25px}
 .toast{position:fixed;bottom:30px;right:30px;padding:15px 25px;border-radius:12px;color:white;font-weight:600;z-index:1000;animation:toastIn 0.3s;box-shadow:0 5px 20px rgba(0,0,0,0.3)}
 .toast.success{background:linear-gradient(135deg,#27ae60,#2ecc71)}
 .toast.error{background:linear-gradient(135deg,#c0392b,#e74c3c)}
 @keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.recheio-card{background:white;border:2px solid #eee;border-radius:14px;padding:18px;margin-bottom:15px;transition:all 0.3s}
-.recheio-card.editing{border-color:var(--primary);box-shadow:0 0 0 3px rgba(230,126,34,0.1)}
+.massa-section{background:#f8f9fa;border:2px solid #eee;border-radius:14px;padding:20px;margin-bottom:20px}
+.massa-section h3{font-size:1.1rem;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px}
+.recheio-card{background:white;border:2px solid #eee;border-radius:14px;padding:18px;margin-bottom:15px}
 .recheio-card h3{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
 @media(max-width:768px){
 .top-header{flex-wrap:wrap;gap:10px;padding:10px 15px}
 .header-stats{flex-wrap:wrap;gap:8px}
-nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
+nav button{padding:10px 12px;font-size:0.78rem}
 .page{padding:15px}
 .ficha-card{flex-direction:column;gap:15px;align-items:flex-start}
 .ficha-card .fc-costs{width:100%;justify-content:space-around}
 .form-row{grid-template-columns:1fr}
-.grid-4{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -144,7 +142,7 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <button onclick="showPage('insumos',this)">📦 Insumos</button>
 <button onclick="showPage('fichas',this)">📋 Fichas</button>
 <button onclick="showPage('novaFicha',this)">➕ Nova Ficha</button>
-<button onclick="showPage('massa',this)">🥖 Massa</button>
+<button onclick="showPage('massa',this)">🥖 Massas</button>
 <button onclick="showPage('recheio',this)">🧆 Recheios</button>
 <button onclick="showPage('custos',this)">💼 Custos Fixos</button>
 <button onclick="showPage('precificar',this)">💰 Precificar</button>
@@ -154,17 +152,15 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <!-- DASHBOARD -->
 <div class="page active" id="pg-dashboard">
 <div class="card"><div class="card-header orange">📊 Visão Geral</div>
-<div class="grid-4" id="dashCounters">
+<div class="grid-2" id="dashCounters">
 <div class="stat-card green"><div class="stat-val" id="dPeq">0</div><div class="stat-label">Pequenos</div></div>
 <div class="stat-card blue"><div class="stat-val" id="dMed">0</div><div class="stat-label">Médios</div></div>
-<div class="stat-card orange"><div class="stat-val" id="dGra">0</div><div class="stat-label">Grandes</div></div>
-<div class="stat-card purple"><div class="stat-val" id="dFes">0</div><div class="stat-label">Festa</div></div>
 </div>
-<div class="grid-4" style="margin-top:15px" id="dashStats">
+<div class="grid-4" style="margin-top:15px">
 <div class="stat-card"><div class="stat-label">Insumos</div><div class="stat-val blue" id="dsIns">0</div></div>
 <div class="stat-card"><div class="stat-label">Fichas</div><div class="stat-val green" id="dsFic">0</div></div>
 <div class="stat-card"><div class="stat-label">Custo Fixo/Cento</div><div class="stat-val red" id="dsCF">R$ 0.00</div></div>
-<div class="stat-card"><div class="stat-label">Massa Base</div><div class="stat-val orange" id="dsMassa">R$ 0.00</div></div>
+<div class="stat-card"><div class="stat-label">Massa Cozida</div><div class="stat-val orange" id="dsMC">R$ 0.00</div></div>
 </div></div>
 <div class="card"><div class="card-header green">🏆 Top 5 Mais Lucrativos</div>
 <div id="topLucro"><div class="empty-state"><div class="icon">📋</div>Cadastre fichas</div></div>
@@ -198,9 +194,8 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <div class="search-box"><input id="ficBusca" placeholder="Buscar ficha..." oninput="renderFichas()"></div>
 <div class="filter-pills" id="ficFiltros">
 <button class="pill active" onclick="filtrarFichas('todas',this)">Todas <span class="count" id="fAll">0</span></button>
-<button class="pill" onclick="filtrarFichas('Frito',this)">🍳 Frito <span class="count" id="fFrito">0</span></button>
-<button class="pill" onclick="filtrarFichas('Assado',this)">🔥 Assado <span class="count" id="fAssado">0</span></button>
-<button class="pill" onclick="filtrarFichas('Congelado',this)">❄️ Congelado <span class="count" id="fCongelado">0</span></button>
+<button class="pill" onclick="filtrarFichas('Frito',this)">🍳 Fritos <span class="count" id="fFrito">0</span></button>
+<button class="pill" onclick="filtrarFichas('Assado',this)">🔥 Assados <span class="count" id="fAssado">0</span></button>
 </div>
 <div id="fichasLista"></div>
 </div></div>
@@ -210,25 +205,25 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <div class="card"><div class="card-header orange">➕ Nova Ficha Técnica</div>
 <div class="form-row">
 <div class="form-group"><label>Nome do Salgado</label><input id="nfNome" placeholder="Ex: Coxinha de Frango"></div>
-<div class="form-group"><label>Tipo</label><select id="nfTipo"><option>Frito</option><option>Assado</option><option>Congelado</option></select></div>
+<div class="form-group"><label>Tipo</label><select id="nfTipo"><option>Frito</option><option>Assado</option></select></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Categoria</label><select id="nfCat"><option>Coxinha</option><option>Bolinha</option><option>Kibe</option><option>Risole</option><option>Pastel</option><option>Empada</option><option>Enroladinho</option><option>Outro</option></select></div>
-<div class="form-group"><label>Tamanho</label><select id="nfTam"><option>Pequeno</option><option>Médio</option><option>Grande</option><option>Festa</option></select></div>
+<div class="form-group"><label>Tamanho</label><select id="nfTam" onchange="calcFicha()"><option>Pequeno</option><option>Médio</option></select></div>
 </div>
 <div class="form-row">
-<div class="form-group"><label>Rendimento (unidades por receita)</label><input id="nfRend" type="number" value="100" placeholder="100"></div>
+<div class="form-group"><label>Rendimento (unidades por receita)</label><input id="nfRend" type="number" value="100" oninput="calcFicha()"></div>
 <div class="form-group"><label>Preço de Venda (unidade R$)</label><input id="nfPrecoUn" type="number" step="0.01" placeholder="Ex: 5.00" oninput="calcFicha()"></div>
 <div class="form-group"><label>Preço por Cento (R$)</label><input id="nfPrecoCento" type="number" step="0.01" placeholder="Ex: 350.00" oninput="calcFicha()"></div>
 </div>
 <div class="form-row">
-<div class="form-group"><label>Incluir Massa Base?</label><select id="nfMassa" onchange="calcFicha()"><option value="1">✅ Sim</option><option value="0">❌ Não</option></select></div>
-<div class="form-group"><label>Incluir Recheio Base?</label><select id="nfRecheio" onchange="calcFicha()"><option value="">❌ Não</option></select></div>
+<div class="form-group"><label>Usar Massa</label><select id="nfMassa" onchange="calcFicha()"><option value="">❌ Não</option><option value="cozida">🍲 Massa Cozida</option><option value="crua">🥖 Massa Crua</option></select></div>
+<div class="form-group"><label>Incluir Recheio</label><select id="nfRecheio" onchange="calcFicha()"><option value="">❌ Não</option></select></div>
 </div>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
 <h3 style="margin-bottom:15px">🧀 Ingredientes Adicionais</h3>
 <div id="nfIngredientes"></div>
-<button class="btn btn-primary btn-sm" onclick="addIngredienteFicha()" style="margin-bottom:15px">+ Ingrediente</button>
+<button class="btn btn-primary btn-sm" onclick="addIngFicha()" style="margin-bottom:15px">+ Ingrediente</button>
 <div class="resumo-box">
 <div style="text-align:center;font-size:1.1rem;font-weight:700">📊 Resumo Completo</div>
 <div class="resumo-grid">
@@ -251,43 +246,52 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <input type="hidden" id="nfEditId" value="">
 </div></div>
 
-<!-- MASSA -->
+<!-- MASSAS (2 tipos) -->
 <div class="page" id="pg-massa">
-<div class="card"><div class="card-header orange">🥖 Receita Base da Massa</div>
-<h3 style="margin-bottom:15px">📝 Ingredientes da Receita</h3>
-<div id="massaIngredientes"></div>
-<button class="btn btn-primary btn-sm" onclick="addIngMassa()" style="margin-bottom:20px">+ Ingrediente</button>
-<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
-<div class="form-group"><label>⚖️ Peso TOTAL dessa receita (em gramas)</label><input id="massaPeso" type="number" value="3000" oninput="calcMassa()" placeholder="Ex: 3000"></div>
-<small style="color:var(--text-light)">Informe a soma de todos os ingredientes em gramas.</small>
-<hr style="margin:20px 0;border:none;border-top:2px solid #eee">
-<h4>🥟 Gramas de massa por salgado:</h4>
-<div class="form-row" style="margin-top:10px">
-<div class="form-group"><label>🟢 Pequeno</label><input id="mPeq" type="number" value="20" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>🔵 Médio</label><input id="mMed" type="number" value="30" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>🟠 Grande</label><input id="mGra" type="number" value="40" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>🟣 Festa</label><input id="mFes" type="number" value="60" oninput="calcMassa()"><small>gramas</small></div>
+<div class="card"><div class="card-header orange">🥖 Receitas Base de Massa</div>
+<p style="margin-bottom:20px;color:var(--text-light)">Configure as duas massas base. O custo será calculado automaticamente nas fichas.</p>
+
+<div class="massa-section" id="massaCozidaSection">
+<h3>🍲 Massa Cozida</h3>
+<div id="mcIngredientes"></div>
+<button class="btn btn-primary btn-sm" onclick="addIngMassa('cozida')" style="margin:10px 0">+ Ingrediente</button>
+<div class="form-row">
+<div class="form-group"><label>Peso Total (g)</label><input id="mcPeso" type="number" value="3000" oninput="calcMassas()"></div>
+<div class="form-group"><label>g/Pequeno</label><input id="mcPeq" type="number" value="20" oninput="calcMassas()"></div>
+<div class="form-group"><label>g/Médio</label><input id="mcMed" type="number" value="30" oninput="calcMassas()"></div>
 </div>
 <div class="resumo-box">
-<div style="text-align:center;font-size:1.1rem;font-weight:700">📊 Resultado do Cálculo</div>
 <div class="resumo-grid">
-<div class="resumo-item"><div class="r-label">Custo Total da Receita</div><div class="r-val blue" id="mCustoTotal">R$ 0.00</div></div>
-<div class="resumo-item"><div class="r-label">Peso Total</div><div class="r-val green" id="mPesoTotal">3000 g</div></div>
-<div class="resumo-item"><div class="r-label">Custo por Grama</div><div class="r-val orange" id="mCustoGrama">R$ 0.0000</div></div>
-</div>
-<div style="text-align:center;margin-top:15px;font-weight:700">💰 Custo da Massa por Tamanho</div>
-<div class="resumo-grid">
-<div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green" id="mCPeq">R$ 0.00</div></div>
-<div class="resumo-item"><div class="r-label">Médio</div><div class="r-val blue" id="mCMed">R$ 0.00</div></div>
-<div class="resumo-item"><div class="r-label">Grande</div><div class="r-val orange" id="mCGra">R$ 0.00</div></div>
-<div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple" id="mCFes">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue" id="mcCT">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Grama</div><div class="r-val orange" id="mcCG">R$ 0.0000</div></div>
+<div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green" id="mcCP">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Médio</div><div class="r-val blue" id="mcCM">R$ 0.00</div></div>
 </div></div>
-<button class="btn btn-green btn-block" onclick="salvarMassa()" style="margin-top:15px">💾 Salvar Massa</button>
+</div>
+
+<div class="massa-section" id="massaCruaSection">
+<h3>🥖 Massa Crua</h3>
+<div id="mrIngredientes"></div>
+<button class="btn btn-primary btn-sm" onclick="addIngMassa('crua')" style="margin:10px 0">+ Ingrediente</button>
+<div class="form-row">
+<div class="form-group"><label>Peso Total (g)</label><input id="mrPeso" type="number" value="3000" oninput="calcMassas()"></div>
+<div class="form-group"><label>g/Pequeno</label><input id="mrPeq" type="number" value="25" oninput="calcMassas()"></div>
+<div class="form-group"><label>g/Médio</label><input id="mrMed" type="number" value="35" oninput="calcMassas()"></div>
+</div>
+<div class="resumo-box">
+<div class="resumo-grid">
+<div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue" id="mrCT">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Custo/Grama</div><div class="r-val orange" id="mrCG">R$ 0.0000</div></div>
+<div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green" id="mrCP">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Médio</div><div class="r-val blue" id="mrCM">R$ 0.00</div></div>
+</div></div>
+</div>
+<button class="btn btn-green btn-block" onclick="salvarMassas()">💾 Salvar Massas</button>
 </div></div>
 
 <!-- RECHEIOS -->
 <div class="page" id="pg-recheio">
-<div class="card"><div class="card-header purple">🧆 Receitas de Recheios Base</div>
+<div class="card"><div class="card-header purple">🧆 Receitas de Recheios</div>
 <button class="btn btn-primary" onclick="novoRecheio()" style="margin-bottom:20px">➕ Novo Recheio</button>
 <div id="recheiosLista"></div>
 </div></div>
@@ -295,8 +299,8 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <!-- CUSTOS FIXOS -->
 <div class="page" id="pg-custos">
 <div class="card"><div class="card-header dark">💼 Custos Fixos Mensais</div>
-<p style="margin-bottom:15px;color:var(--text-light);font-size:0.9rem">Informe seus gastos mensais para calcular o rateio por unidade/cento.</p>
-<div class="form-group"><label>📦 Produção Mensal (unidades)</label><input id="cfProducao" type="number" value="1000" oninput="calcCustos()" placeholder="Ex: 1000"></div>
+<p style="margin-bottom:15px;color:var(--text-light);font-size:0.9rem">Informe seus gastos mensais para calcular o rateio por unidade.</p>
+<div class="form-group"><label>📦 Produção Mensal (unidades)</label><input id="cfProducao" type="number" value="1000" oninput="calcCustos()"></div>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
 <div id="custosFixosLista"></div>
 <div class="resumo-box" style="margin-top:20px">
@@ -315,7 +319,7 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 </div>
 <div class="grid-2">
 <div class="card"><div class="card-header orange">📊 Calcular por CMV</div>
-<div class="form-group"><label>Custo Total (R$)</label><input id="prCusto" type="number" step="0.01" value="18.00" oninput="calcPrec()"></div>
+<div class="form-group"><label>Custo Total (R$)</label><input id="prCusto" type="number" step="0.01" value="1.50" oninput="calcPrec()"></div>
 <div class="slider-container">
 <label>CMV Desejado: <span id="prCMVVal" style="color:var(--primary);font-weight:700">30%</span></label>
 <input type="range" id="prCMV" min="15" max="60" value="30" oninput="calcPrec()">
@@ -347,140 +351,130 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 
 <div id="toastContainer"></div>
 <script>
-// ===== AUTH =====
+// AUTH
 (function(){const s=localStorage.getItem('salgadoControlSession');if(!s){window.location.href='index.html';return}try{const p=JSON.parse(s);if(!p.logged)window.location.href='index.html'}catch(e){window.location.href='index.html'}})();
 function logout(){localStorage.removeItem('salgadoControlSession');window.location.href='index.html'}
 
-// ===== DATA =====
-let DB={insumos:[],fichas:[],massa:{ingredientes:[],pesoTotal:3000,gramas:{Pequeno:20,Medio:30,Grande:40,Festa:60}},recheios:[],custos:{producao:1000,itens:{aluguel:0,energia:0,gas:0,agua:0,internet:0,funcionarios:0,combustivel:0,embalagens:0,marketing:0,contador:0,oleo:0,outros:0}}};
-function loadDB(){try{const d=localStorage.getItem('salgadoControlDB');if(d)DB=JSON.parse(d)}catch(e){}}
+// DATA
+let DB={insumos:[],fichas:[],massaCozida:{ingredientes:[],pesoTotal:3000,gramas:{Pequeno:20,Medio:30}},massaCrua:{ingredientes:[],pesoTotal:3000,gramas:{Pequeno:25,Medio:35}},recheios:[],custos:{producao:1000,itens:{aluguel:0,energia:0,gas:0,agua:0,internet:0,funcionarios:0,combustivel:0,embalagens:0,marketing:0,contador:0,oleo:0,outros:0}}};
+function loadDB(){try{const d=localStorage.getItem('salgadoControlDB');if(d){const parsed=JSON.parse(d);DB={...DB,...parsed}}}catch(e){}}
 function saveDB(){localStorage.setItem('salgadoControlDB',JSON.stringify(DB))}
 loadDB();
 
-// ===== NAV =====
-function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('pg-'+id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(id==='dashboard')updateDashboard();if(id==='fichas')renderFichas();if(id==='novaFicha')initNovaFicha();if(id==='massa')initMassa();if(id==='recheio')renderRecheios();if(id==='custos')initCustos();if(id==='precificar')initPrec();if(id==='insumos')renderInsumos()}
+// NAV
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('pg-'+id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(id==='dashboard')updateDashboard();if(id==='fichas')renderFichas();if(id==='novaFicha')initNovaFicha();if(id==='massa')initMassas();if(id==='recheio')renderRecheios();if(id==='custos')initCustos();if(id==='precificar')initPrec();if(id==='insumos')renderInsumos()}
 function toast(msg,type='success'){const t=document.createElement('div');t.className='toast '+type;t.textContent=msg;document.getElementById('toastContainer').appendChild(t);setTimeout(()=>t.remove(),3000)}
 
-// ===== HEADER =====
+// HEADER
 function updateHeader(){document.getElementById('hInsumos').textContent=DB.insumos.length;document.getElementById('hFichas').textContent=DB.fichas.length;const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);document.getElementById('hCustoFixo').textContent='R$ '+total.toFixed(2)}
 updateHeader();
 
-// ===== INSUMOS =====
-function getInsumoCustoPorUnidade(ins){return(parseFloat(ins.preco)||0)/(parseFloat(ins.qtdEmb)||1)}
+// INSUMOS
+function cpu(ins){return(parseFloat(ins.preco)||0)/(parseFloat(ins.qtdEmb)||1)}
 function salvarInsumo(){const n=document.getElementById('insNome').value.trim();if(!n){toast('Informe o nome!','error');return}const ins={id:document.getElementById('insEditId').value||Date.now().toString(),nome:n,categoria:document.getElementById('insCat').value,unidade:document.getElementById('insUni').value,qtdEmb:parseFloat(document.getElementById('insQtd').value)||1,preco:parseFloat(document.getElementById('insPreco').value)||0};const idx=DB.insumos.findIndex(i=>i.id===ins.id);if(idx>=0)DB.insumos[idx]=ins;else DB.insumos.push(ins);saveDB();updateHeader();renderInsumos();limparFormInsumo();toast('Insumo salvo!')}
 function limparFormInsumo(){['insNome','insQtd','insPreco'].forEach(id=>document.getElementById(id).value='');document.getElementById('insEditId').value='';document.getElementById('insCat').selectedIndex=0;document.getElementById('insUni').selectedIndex=0}
 function editarInsumo(id){const ins=DB.insumos.find(i=>i.id===id);if(!ins)return;document.getElementById('insNome').value=ins.nome;document.getElementById('insCat').value=ins.categoria;document.getElementById('insUni').value=ins.unidade;document.getElementById('insQtd').value=ins.qtdEmb;document.getElementById('insPreco').value=ins.preco;document.getElementById('insEditId').value=ins.id;window.scrollTo({top:0,behavior:'smooth'})}
 function deletarInsumo(id){if(!confirm('Excluir este insumo?'))return;DB.insumos=DB.insumos.filter(i=>i.id!==id);saveDB();updateHeader();renderInsumos();toast('Insumo excluído!')}
 function renderInsumos(){const busca=(document.getElementById('insBusca')?.value||'').toLowerCase();const lista=DB.insumos.filter(i=>i.nome.toLowerCase().includes(busca));const el=document.getElementById('insumosLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">📦</div>Nenhum insumo cadastrado</div>';return}
-let html='<table><thead><tr><th>Nome</th><th>Categoria</th><th>Unidade</th><th>Qtd Emb</th><th>Preço Emb</th><th>Preço/Uni</th><th>Ações</th></tr></thead><tbody>';
-lista.forEach(i=>{const cpu=getInsumoCustoPorUnidade(i);html+=`<tr><td><strong>${i.nome}</strong></td><td>${i.categoria}</td><td>${i.unidade}</td><td>${i.qtdEmb}</td><td>R$ ${i.preco.toFixed(2)}</td><td style="color:var(--primary);font-weight:700">R$ ${cpu.toFixed(4)}</td><td><button class="btn btn-primary btn-sm" onclick="editarInsumo('${i.id}')">✏️</button> <button class="btn btn-red btn-sm" onclick="deletarInsumo('${i.id}')">🗑️</button></td></tr>`});
-html+='</tbody></table>';el.innerHTML=html}
+let h='<table><thead><tr><th>Nome</th><th>Categoria</th><th>Unidade</th><th>Qtd Emb</th><th>Preço Emb</th><th>Preço/Uni</th><th>Ações</th></tr></thead><tbody>';
+lista.forEach(i=>{h+=`<tr><td><strong>${i.nome}</strong></td><td>${i.categoria}</td><td>${i.unidade}</td><td>${i.qtdEmb}</td><td>R$ ${i.preco.toFixed(2)}</td><td style="color:var(--primary);font-weight:700">R$ ${cpu(i).toFixed(4)}</td><td><button class="btn btn-primary btn-sm" onclick="editarInsumo('${i.id}')">✏️</button> <button class="btn btn-red btn-sm" onclick="deletarInsumo('${i.id}')">🗑️</button></td></tr>`});
+el.innerHTML=h+'</tbody></table>'}
 renderInsumos();
 
-// ===== INSUMO SELECT BUILDER =====
-function buildInsumoOptions(){return'<option value="">Selecione...</option>'+DB.insumos.map(i=>`<option value="${i.id}">${i.nome} (${i.unidade})</option>`).join('')}
+// INSUMO OPTIONS
+function insOpts(){return'<option value="">Selecione...</option>'+DB.insumos.map(i=>`<option value="${i.id}">${i.nome} (${i.unidade})</option>`).join('')}
 
-// ===== MASSA =====
-function initMassa(){const el=document.getElementById('massaIngredientes');if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];el.innerHTML='';DB.massa.ingredientes.forEach((ing,idx)=>{el.innerHTML+=buildIngRow('massa',idx,ing)});document.getElementById('massaPeso').value=DB.massa.pesoTotal||3000;document.getElementById('mPeq').value=DB.massa.gramas?.Pequeno||20;document.getElementById('mMed').value=DB.massa.gramas?.Medio||30;document.getElementById('mGra').value=DB.massa.gramas?.Grande||40;document.getElementById('mFes').value=DB.massa.gramas?.Festa||60;calcMassa()}
-function buildIngRow(prefix,idx,ing){const opts=buildInsumoOptions();return`<div class="ingredient-row" id="${prefix}Row${idx}"><select onchange="${prefix}IngChange(${idx},this)">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="${prefix}QtdChange(${idx},this)"><span class="cost" id="${prefix}Cost${idx}">R$ 0</span><button class="btn-remove" onclick="remove${prefix.charAt(0).toUpperCase()+prefix.slice(1)}Ing(${idx})">✕</button></div>`.replace(`value="${ing.insumoId}"`,ing.insumoId?`value="${ing.insumoId}" selected`:`value="${ing.insumoId}"`)}
-function addIngMassa(){DB.massa.ingredientes.push({insumoId:'',qtd:0});initMassa()}
-function removeMassaIng(idx){DB.massa.ingredientes.splice(idx,1);if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];initMassa()}
-function massaIngChange(idx,sel){DB.massa.ingredientes[idx].insumoId=sel.value;calcMassa()}
-function massaQtdChange(idx,inp){DB.massa.ingredientes[idx].qtd=parseFloat(inp.value)||0;calcMassa()}
-function calcMassa(){let custoTotal=0;DB.massa.ingredientes.forEach((ing,idx)=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;const cpu=getInsumoCustoPorUnidade(ins);const custo=cpu*(parseFloat(ing.qtd)||0);custoTotal+=custo;const el=document.getElementById('massaCost'+idx);if(el)el.textContent='R$ '+custo.toFixed(2)});
-const peso=parseFloat(document.getElementById('massaPeso')?.value)||1;const cpg=custoTotal/peso;
-const gP=parseFloat(document.getElementById('mPeq')?.value)||0;const gM=parseFloat(document.getElementById('mMed')?.value)||0;const gG=parseFloat(document.getElementById('mGra')?.value)||0;const gF=parseFloat(document.getElementById('mFes')?.value)||0;
-document.getElementById('mCustoTotal').textContent='R$ '+custoTotal.toFixed(2);document.getElementById('mPesoTotal').textContent=peso+' g';document.getElementById('mCustoGrama').textContent='R$ '+cpg.toFixed(4);
-document.getElementById('mCPeq').textContent='R$ '+(cpg*gP).toFixed(4);document.getElementById('mCMed').textContent='R$ '+(cpg*gM).toFixed(4);document.getElementById('mCGra').textContent='R$ '+(cpg*gG).toFixed(4);document.getElementById('mCFes').textContent='R$ '+(cpg*gF).toFixed(4);
-// Fix select values
-DB.massa.ingredientes.forEach((ing,idx)=>{const sel=document.querySelector(`#massaRow${idx} select`);if(sel&&ing.insumoId)sel.value=ing.insumoId})}
-function salvarMassa(){DB.massa.pesoTotal=parseFloat(document.getElementById('massaPeso').value)||3000;DB.massa.gramas={Pequeno:parseFloat(document.getElementById('mPeq').value)||20,Medio:parseFloat(document.getElementById('mMed').value)||30,Grande:parseFloat(document.getElementById('mGra').value)||40,Festa:parseFloat(document.getElementById('mFes').value)||60};saveDB();toast('Massa salva!')}
-function getMassaCustoPorTamanho(tam){let custoTotal=0;DB.massa.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const peso=DB.massa.pesoTotal||1;const cpg=custoTotal/peso;const tamMap={Pequeno:'Pequeno','Médio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};const g=DB.massa.gramas?.[tamMap[tam]||tam]||0;return cpg*g}
+// MASSAS (Cozida e Crua)
+function initMassas(){initMT('cozida','mc');initMT('crua','mr');calcMassas()}
+function initMT(tipo,pfx){const key=tipo==='cozida'?'massaCozida':'massaCrua';const m=DB[key];if(!m.ingredientes.length)m.ingredientes=[{insumoId:'',qtd:0}];const el=document.getElementById(pfx+'Ingredientes');let h='';m.ingredientes.forEach((ing,i)=>{const ins=ing.insumoId?DB.insumos.find(x=>x.id===ing.insumoId):null;const c=ins?cpu(ins)*(ing.qtd||0):0;
+h+=`<div class="ingredient-row"><select onchange="mtIngChg('${tipo}',${i},this.value)">${insOpts()}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="mtQtdChg('${tipo}',${i},this.value)"><span class="cost">R$ ${c.toFixed(2)}</span><button class="btn-remove" onclick="mtRemIng('${tipo}',${i})">✕</button></div>`});el.innerHTML=h;
+m.ingredientes.forEach((ing,i)=>{const sels=el.querySelectorAll('select');if(sels[i]&&ing.insumoId)sels[i].value=ing.insumoId});
+document.getElementById(pfx+'Peso').value=m.pesoTotal||3000;document.getElementById(pfx+'Peq').value=m.gramas?.Pequeno||20;document.getElementById(pfx+'Med').value=m.gramas?.Medio||30}
+function addIngMassa(tipo){const key=tipo==='cozida'?'massaCozida':'massaCrua';DB[key].ingredientes.push({insumoId:'',qtd:0});initMassas()}
+function mtIngChg(tipo,i,v){DB[tipo==='cozida'?'massaCozida':'massaCrua'].ingredientes[i].insumoId=v;calcMassas()}
+function mtQtdChg(tipo,i,v){DB[tipo==='cozida'?'massaCozida':'massaCrua'].ingredientes[i].qtd=parseFloat(v)||0;calcMassas()}
+function mtRemIng(tipo,i){const key=tipo==='cozida'?'massaCozida':'massaCrua';DB[key].ingredientes.splice(i,1);if(!DB[key].ingredientes.length)DB[key].ingredientes=[{insumoId:'',qtd:0}];initMassas()}
+function calcMassaCusto(key){let ct=0;DB[key].ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(ins)ct+=cpu(ins)*(ing.qtd||0)});return ct}
+function calcMassas(){['cozida','crua'].forEach(tipo=>{const key=tipo==='cozida'?'massaCozida':'massaCrua';const pfx=tipo==='cozida'?'mc':'mr';const ct=calcMassaCusto(key);const peso=parseFloat(document.getElementById(pfx+'Peso')?.value)||1;const cpg=ct/peso;const gP=parseFloat(document.getElementById(pfx+'Peq')?.value)||0;const gM=parseFloat(document.getElementById(pfx+'Med')?.value)||0;
+document.getElementById(pfx+'CT').textContent='R$ '+ct.toFixed(2);document.getElementById(pfx+'CG').textContent='R$ '+cpg.toFixed(4);document.getElementById(pfx+'CP').textContent='R$ '+(cpg*gP).toFixed(4);document.getElementById(pfx+'CM').textContent='R$ '+(cpg*gM).toFixed(4)})}
+function salvarMassas(){['cozida','crua'].forEach(tipo=>{const key=tipo==='cozida'?'massaCozida':'massaCrua';const pfx=tipo==='cozida'?'mc':'mr';DB[key].pesoTotal=parseFloat(document.getElementById(pfx+'Peso').value)||3000;DB[key].gramas={Pequeno:parseFloat(document.getElementById(pfx+'Peq').value)||20,Medio:parseFloat(document.getElementById(pfx+'Med').value)||30}});saveDB();toast('Massas salvas!')}
+function getMassaCusto(tipoMassa,tam){if(!tipoMassa)return 0;const key=tipoMassa==='cozida'?'massaCozida':'massaCrua';const ct=calcMassaCusto(key);const peso=DB[key].pesoTotal||1;const cpg=ct/peso;const tamKey=tam==='Médio'?'Medio':tam;return cpg*(DB[key].gramas?.[tamKey]||0)}
 
-// ===== RECHEIOS =====
-function novoRecheio(){DB.recheios.push({id:Date.now().toString(),nome:'Novo Recheio',ingredientes:[{insumoId:'',qtd:0}],pesoTotal:1000,gramas:{Pequeno:15,Medio:20,Grande:30,Festa:45}});saveDB();renderRecheios()}
-function renderRecheios(){const el=document.getElementById('recheiosLista');if(!DB.recheios.length){el.innerHTML='<div class="empty-state"><div class="icon">🧆</div>Nenhum recheio cadastrado</div>';updateRecheioSelect();return}
-let html='';DB.recheios.forEach((r,ri)=>{let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);
-html+=`<div class="recheio-card"><h3>🧆 <input value="${r.nome}" style="border:none;font-size:1rem;font-weight:700;background:transparent;padding:0;flex:1" onchange="DB.recheios[${ri}].nome=this.value;saveDB();updateRecheioSelect()"> <button class="btn btn-red btn-sm" onclick="if(confirm('Excluir?')){DB.recheios.splice(${ri},1);saveDB();renderRecheios()}">🗑️</button></h3>`;
-r.ingredientes.forEach((ing,ii)=>{const opts=buildInsumoOptions();html+=`<div class="ingredient-row"><select onchange="DB.recheios[${ri}].ingredientes[${ii}].insumoId=this.value;saveDB();renderRecheios()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="DB.recheios[${ri}].ingredientes[${ii}].qtd=parseFloat(this.value)||0;saveDB();renderRecheios()"><span class="cost">R$ ${(()=>{if(!ing.insumoId)return'0';const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return'0';return(getInsumoCustoPorUnidade(ins)*(ing.qtd||0)).toFixed(2)})()}</span><button class="btn-remove" onclick="DB.recheios[${ri}].ingredientes.splice(${ii},1);if(!DB.recheios[${ri}].ingredientes.length)DB.recheios[${ri}].ingredientes=[{insumoId:'',qtd:0}];saveDB();renderRecheios()">✕</button></div>`});
-html+=`<button class="btn btn-primary btn-sm" onclick="DB.recheios[${ri}].ingredientes.push({insumoId:'',qtd:0});saveDB();renderRecheios()" style="margin:10px 0">+ Ingrediente</button>`;
-html+=`<div class="form-row"><div class="form-group"><label>Peso Total (g)</label><input type="number" value="${r.pesoTotal||1000}" onchange="DB.recheios[${ri}].pesoTotal=parseFloat(this.value)||1000;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Pequeno</label><input type="number" value="${r.gramas?.Pequeno||15}" onchange="DB.recheios[${ri}].gramas.Pequeno=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Médio</label><input type="number" value="${r.gramas?.Medio||20}" onchange="DB.recheios[${ri}].gramas.Medio=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Grande</label><input type="number" value="${r.gramas?.Grande||30}" onchange="DB.recheios[${ri}].gramas.Grande=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Festa</label><input type="number" value="${r.gramas?.Festa||45}" onchange="DB.recheios[${ri}].gramas.Festa=parseFloat(this.value)||0;saveDB();renderRecheios()"></div></div>`;
-html+=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue">R$ ${custoTotal.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Custo/g</div><div class="r-val orange">R$ ${cpg.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Peq</div><div class="r-val green">R$ ${(cpg*(r.gramas?.Pequeno||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Méd</div><div class="r-val blue">R$ ${(cpg*(r.gramas?.Medio||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Gra</div><div class="r-val orange">R$ ${(cpg*(r.gramas?.Grande||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple">R$ ${(cpg*(r.gramas?.Festa||0)).toFixed(4)}</div></div></div></div></div>`});
-el.innerHTML=html;
-// set select values
-DB.recheios.forEach((r,ri)=>{r.ingredientes.forEach((ing,ii)=>{const sels=el.querySelectorAll(`.recheio-card:nth-child(${ri+1}) select`);if(sels[ii]&&ing.insumoId)sels[ii].value=ing.insumoId})});
-updateRecheioSelect()}
-function getRecheioObj(id){return DB.recheios.find(r=>r.id===id)}
-function getRecheioCustoPorTamanho(recheioId,tam){const r=getRecheioObj(recheioId);if(!r)return 0;let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);const tamMap={Pequeno:'Pequeno','Médio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};return cpg*(r.gramas?.[tamMap[tam]||tam]||0)}
-function updateRecheioSelect(){const sel=document.getElementById('nfRecheio');if(!sel)return;const val=sel.value;sel.innerHTML='<option value="">❌ Não</option>';DB.recheios.forEach(r=>{sel.innerHTML+=`<option value="${r.id}">${r.nome}</option>`});sel.value=val}
+// RECHEIOS
+function novoRecheio(){DB.recheios.push({id:Date.now().toString(),nome:'Novo Recheio',ingredientes:[{insumoId:'',qtd:0}],pesoTotal:1000,gramas:{Pequeno:15,Medio:20}});saveDB();renderRecheios()}
+function renderRecheios(){const el=document.getElementById('recheiosLista');if(!DB.recheios.length){el.innerHTML='<div class="empty-state"><div class="icon">🧆</div>Nenhum recheio cadastrado</div>';updRecSel();return}
+let h='';DB.recheios.forEach((r,ri)=>{let ct=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(ins)ct+=cpu(ins)*(ing.qtd||0)});const cpg=ct/(r.pesoTotal||1);
+h+=`<div class="recheio-card"><h3>🧆 <input value="${r.nome}" style="border:none;font-size:1rem;font-weight:700;background:transparent;padding:0;flex:1" onchange="DB.recheios[${ri}].nome=this.value;saveDB();updRecSel()"> <button class="btn btn-red btn-sm" onclick="if(confirm('Excluir?')){DB.recheios.splice(${ri},1);saveDB();renderRecheios()}">🗑️</button></h3>`;
+r.ingredientes.forEach((ing,ii)=>{const c=ing.insumoId?(()=>{const ins=DB.insumos.find(i=>i.id===ing.insumoId);return ins?(cpu(ins)*(ing.qtd||0)).toFixed(2):'0'})():'0';
+h+=`<div class="ingredient-row"><select onchange="DB.recheios[${ri}].ingredientes[${ii}].insumoId=this.value;saveDB();renderRecheios()">${insOpts()}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="DB.recheios[${ri}].ingredientes[${ii}].qtd=parseFloat(this.value)||0;saveDB();renderRecheios()"><span class="cost">R$ ${c}</span><button class="btn-remove" onclick="DB.recheios[${ri}].ingredientes.splice(${ii},1);if(!DB.recheios[${ri}].ingredientes.length)DB.recheios[${ri}].ingredientes=[{insumoId:'',qtd:0}];saveDB();renderRecheios()">✕</button></div>`});
+h+=`<button class="btn btn-primary btn-sm" onclick="DB.recheios[${ri}].ingredientes.push({insumoId:'',qtd:0});saveDB();renderRecheios()" style="margin:10px 0">+ Ingrediente</button>`;
+h+=`<div class="form-row"><div class="form-group"><label>Peso Total (g)</label><input type="number" value="${r.pesoTotal||1000}" onchange="DB.recheios[${ri}].pesoTotal=parseFloat(this.value)||1000;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Pequeno</label><input type="number" value="${r.gramas?.Pequeno||15}" onchange="DB.recheios[${ri}].gramas.Pequeno=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Médio</label><input type="number" value="${r.gramas?.Medio||20}" onchange="DB.recheios[${ri}].gramas.Medio=parseFloat(this.value)||0;saveDB();renderRecheios()"></div></div>`;
+h+=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue">R$ ${ct.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Custo/g</div><div class="r-val orange">R$ ${cpg.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green">R$ ${(cpg*(r.gramas?.Pequeno||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Médio</div><div class="r-val blue">R$ ${(cpg*(r.gramas?.Medio||0)).toFixed(4)}</div></div></div></div></div>`});
+el.innerHTML=h;DB.recheios.forEach((r,ri)=>{r.ingredientes.forEach((ing,ii)=>{const sels=el.querySelectorAll(`.recheio-card:nth-child(${ri+1}) select`);if(sels[ii]&&ing.insumoId)sels[ii].value=ing.insumoId})});updRecSel()}
+function getRecCusto(id,tam){const r=DB.recheios.find(x=>x.id===id);if(!r)return 0;let ct=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(ins)ct+=cpu(ins)*(ing.qtd||0)});const cpg=ct/(r.pesoTotal||1);const tk=tam==='Médio'?'Medio':tam;return cpg*(r.gramas?.[tk]||0)}
+function updRecSel(){const sel=document.getElementById('nfRecheio');if(!sel)return;const v=sel.value;sel.innerHTML='<option value="">❌ Não</option>';DB.recheios.forEach(r=>{sel.innerHTML+=`<option value="${r.id}">${r.nome}</option>`});sel.value=v}
 
-// ===== CUSTOS FIXOS =====
-const CUSTOS_ITEMS=[{key:'aluguel',nome:'Aluguel',desc:'Aluguel do espaço',icon:'🏠'},{key:'energia',nome:'Energia',desc:'Conta de luz',icon:'⚡'},{key:'gas',nome:'Gás',desc:'Gás de cozinha',icon:'🔥'},{key:'agua',nome:'Água',desc:'Conta de água',icon:'💧'},{key:'internet',nome:'Internet',desc:'Internet/Telefone',icon:'📶'},{key:'funcionarios',nome:'Funcionários',desc:'Salários + encargos',icon:'👩‍🍳'},{key:'combustivel',nome:'Combustível',desc:'Gasolina/Transporte',icon:'⛽'},{key:'embalagens',nome:'Embalagens',desc:'Caixas, sacolas',icon:'📦'},{key:'marketing',nome:'Marketing',desc:'Anúncios',icon:'📊'},{key:'contador',nome:'Contador',desc:'Serviços contábeis',icon:'📋'},{key:'oleo',nome:'Óleo de Fritura',desc:'Custo mensal de óleo',icon:'🛢️'},{key:'outros',nome:'Outros',desc:'Despesas diversas',icon:'💸'}];
-function initCustos(){document.getElementById('cfProducao').value=DB.custos.producao||1000;const el=document.getElementById('custosFixosLista');let html='';CUSTOS_ITEMS.forEach(item=>{html+=`<div class="custo-fixo-item"><div class="cf-icon">${item.icon}</div><div class="cf-info"><h4>${item.nome}</h4><small>${item.desc}</small></div><input type="number" step="0.01" value="${DB.custos.itens[item.key]||0}" oninput="DB.custos.itens['${item.key}']=parseFloat(this.value)||0;calcCustos()"></div>`});el.innerHTML=html;calcCustos()}
-function calcCustos(){const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const prod=parseFloat(document.getElementById('cfProducao')?.value)||1;DB.custos.producao=prod;document.getElementById('cfTotal').textContent='R$ '+total.toFixed(2);document.getElementById('cfUnidade').textContent='R$ '+(total/prod).toFixed(4);document.getElementById('cfCento').textContent='R$ '+(total/prod*100).toFixed(2);updateHeader()}
+// CUSTOS FIXOS
+const CF=[{key:'aluguel',nome:'Aluguel',desc:'Aluguel do espaço',icon:'🏠'},{key:'energia',nome:'Energia',desc:'Conta de luz',icon:'⚡'},{key:'gas',nome:'Gás',desc:'Gás de cozinha',icon:'🔥'},{key:'agua',nome:'Água',desc:'Conta de água',icon:'💧'},{key:'internet',nome:'Internet',desc:'Internet/Telefone',icon:'📶'},{key:'funcionarios',nome:'Funcionários',desc:'Salários + encargos',icon:'👩‍🍳'},{key:'combustivel',nome:'Combustível',desc:'Gasolina/Transporte',icon:'⛽'},{key:'embalagens',nome:'Embalagens',desc:'Caixas, sacolas',icon:'📦'},{key:'marketing',nome:'Marketing',desc:'Anúncios',icon:'📊'},{key:'contador',nome:'Contador',desc:'Serviços contábeis',icon:'📋'},{key:'oleo',nome:'Óleo de Fritura',desc:'Custo mensal de óleo',icon:'🛢️'},{key:'outros',nome:'Outros',desc:'Despesas diversas',icon:'💸'}];
+function initCustos(){document.getElementById('cfProducao').value=DB.custos.producao||1000;const el=document.getElementById('custosFixosLista');let h='';CF.forEach(item=>{h+=`<div class="custo-fixo-item"><div class="cf-icon">${item.icon}</div><div class="cf-info"><h4>${item.nome}</h4><small>${item.desc}</small></div><input type="number" step="0.01" value="${DB.custos.itens[item.key]||0}" oninput="DB.custos.itens['${item.key}']=parseFloat(this.value)||0;calcCustos()"></div>`});el.innerHTML=h;calcCustos()}
+function calcCustos(){const t=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const p=parseFloat(document.getElementById('cfProducao')?.value)||1;DB.custos.producao=p;document.getElementById('cfTotal').textContent='R$ '+t.toFixed(2);document.getElementById('cfUnidade').textContent='R$ '+(t/p).toFixed(4);document.getElementById('cfCento').textContent='R$ '+(t/p*100).toFixed(2);updateHeader()}
 function salvarCustos(){DB.custos.producao=parseFloat(document.getElementById('cfProducao').value)||1000;saveDB();updateHeader();toast('Custos salvos!')}
-function getCustoFixoPorUn(){const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);return total/(DB.custos.producao||1)}
+function getCFUn(){const t=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);return t/(DB.custos.producao||1)}
 
-// ===== NOVA FICHA =====
+// NOVA FICHA
 let nfIngs=[];
-function initNovaFicha(){if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();updateRecheioSelect();calcFicha()}
-function renderNFIngs(){const el=document.getElementById('nfIngredientes');let html='';nfIngs.forEach((ing,idx)=>{const opts=buildInsumoOptions();const ins=ing.insumoId?DB.insumos.find(i=>i.id===ing.insumoId):null;const cpu=ins?getInsumoCustoPorUnidade(ins):0;const custo=cpu*(ing.qtd||0);
-html+=`<div class="ingredient-row"><select onchange="nfIngs[${idx}].insumoId=this.value;renderNFIngs();calcFicha()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="nfIngs[${idx}].qtd=parseFloat(this.value)||0;calcFicha()"><span class="cost">R$ ${custo.toFixed(2)}</span><button class="btn-remove" onclick="nfIngs.splice(${idx},1);if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()">✕</button></div>`});el.innerHTML=html;
-nfIngs.forEach((ing,idx)=>{const sel=el.querySelectorAll('.ingredient-row select')[idx];if(sel&&ing.insumoId)sel.value=ing.insumoId})}
-function addIngredienteFicha(){nfIngs.push({insumoId:'',qtd:0});renderNFIngs()}
-function calcFicha(){let custoIng=0;nfIngs.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoIng+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});
-const tam=document.getElementById('nfTam')?.value||'Médio';const rend=parseFloat(document.getElementById('nfRend')?.value)||1;const precoUn=parseFloat(document.getElementById('nfPrecoUn')?.value)||0;const precoCento=parseFloat(document.getElementById('nfPrecoCento')?.value)||0;const usarMassa=document.getElementById('nfMassa')?.value==='1';const recheioId=document.getElementById('nfRecheio')?.value;
-let custoMassa=0;if(usarMassa)custoMassa=getMassaCustoPorTamanho(tam)*rend;
-let custoRecheio=0;if(recheioId)custoRecheio=getRecheioCustoPorTamanho(recheioId,tam)*rend;
-const custoFixoTotal=getCustoFixoPorUn()*rend;
-const custoTotal=custoIng+custoMassa+custoRecheio+custoFixoTotal;const custoUn=custoTotal/rend;const custoCento=custoUn*100;
-const precoRef=precoUn||precoCento/100;const lucro=precoRef-custoUn;const cmv=precoRef>0?(custoUn/precoRef*100):0;const margem=precoRef>0?(lucro/precoRef*100):0;
-document.getElementById('nfRIng').textContent='R$ '+custoIng.toFixed(2);document.getElementById('nfRMassa').textContent='R$ '+custoMassa.toFixed(2);document.getElementById('nfRRech').textContent='R$ '+custoRecheio.toFixed(2);document.getElementById('nfRCF').textContent='R$ '+custoFixoTotal.toFixed(2);document.getElementById('nfRTotal').textContent='R$ '+custoTotal.toFixed(2);document.getElementById('nfRUn').textContent='R$ '+custoUn.toFixed(4);document.getElementById('nfRCento').textContent='R$ '+custoCento.toFixed(2);document.getElementById('nfRVenda').textContent='R$ '+precoRef.toFixed(2);document.getElementById('nfRLucro').textContent='R$ '+lucro.toFixed(2);document.getElementById('nfRCMV').textContent=cmv.toFixed(1)+'%';document.getElementById('nfRMarg').textContent=margem.toFixed(1)+'%';
+function initNovaFicha(){if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFI();updRecSel();calcFicha()}
+function renderNFI(){const el=document.getElementById('nfIngredientes');let h='';nfIngs.forEach((ing,i)=>{const ins=ing.insumoId?DB.insumos.find(x=>x.id===ing.insumoId):null;const c=ins?cpu(ins)*(ing.qtd||0):0;
+h+=`<div class="ingredient-row"><select onchange="nfIngs[${i}].insumoId=this.value;renderNFI();calcFicha()">${insOpts()}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="nfIngs[${i}].qtd=parseFloat(this.value)||0;calcFicha()"><span class="cost">R$ ${c.toFixed(2)}</span><button class="btn-remove" onclick="nfIngs.splice(${i},1);if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFI();calcFicha()">✕</button></div>`});el.innerHTML=h;
+nfIngs.forEach((ing,i)=>{const sel=el.querySelectorAll('select')[i];if(sel&&ing.insumoId)sel.value=ing.insumoId})}
+function addIngFicha(){nfIngs.push({insumoId:'',qtd:0});renderNFI()}
+function calcFicha(){let cIng=0;nfIngs.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(ins)cIng+=cpu(ins)*(ing.qtd||0)});
+const tam=document.getElementById('nfTam')?.value||'Pequeno';const rend=parseFloat(document.getElementById('nfRend')?.value)||1;const pUn=parseFloat(document.getElementById('nfPrecoUn')?.value)||0;const pCento=parseFloat(document.getElementById('nfPrecoCento')?.value)||0;
+const tipoMassa=document.getElementById('nfMassa')?.value||'';const recId=document.getElementById('nfRecheio')?.value||'';
+let cMassa=tipoMassa?getMassaCusto(tipoMassa,tam)*rend:0;let cRech=recId?getRecCusto(recId,tam)*rend:0;const cFix=getCFUn()*rend;
+const cTotal=cIng+cMassa+cRech+cFix;const cUn=cTotal/rend;const cCento=cUn*100;const pRef=pUn||pCento/100;const lucro=pRef-cUn;const cmv=pRef>0?cUn/pRef*100:0;const marg=pRef>0?lucro/pRef*100:0;
+document.getElementById('nfRIng').textContent='R$ '+cIng.toFixed(2);document.getElementById('nfRMassa').textContent='R$ '+cMassa.toFixed(2);document.getElementById('nfRRech').textContent='R$ '+cRech.toFixed(2);document.getElementById('nfRCF').textContent='R$ '+cFix.toFixed(2);document.getElementById('nfRTotal').textContent='R$ '+cTotal.toFixed(2);document.getElementById('nfRUn').textContent='R$ '+cUn.toFixed(4);document.getElementById('nfRCento').textContent='R$ '+cCento.toFixed(2);document.getElementById('nfRVenda').textContent='R$ '+pRef.toFixed(2);document.getElementById('nfRLucro').textContent='R$ '+lucro.toFixed(2);document.getElementById('nfRCMV').textContent=cmv.toFixed(1)+'%';document.getElementById('nfRMarg').textContent=marg.toFixed(1)+'%';
 document.getElementById('nfRLucro').className='r-val '+(lucro>=0?'green':'red');document.getElementById('nfRCMV').className='r-val '+(cmv<=30?'green':cmv<=40?'orange':'red');
 const bar=document.getElementById('nfCMVBar');bar.style.width=Math.min(cmv,100)+'%';bar.style.background=cmv<=30?'#2ecc71':cmv<=40?'#e67e22':'#e74c3c'}
 function salvarFicha(){const nome=document.getElementById('nfNome').value.trim();if(!nome){toast('Informe o nome!','error');return}
-const ficha={id:document.getElementById('nfEditId').value||Date.now().toString(),nome,tipo:document.getElementById('nfTipo').value,categoria:document.getElementById('nfCat').value,tamanho:document.getElementById('nfTam').value,rendimento:parseFloat(document.getElementById('nfRend').value)||100,precoUn:parseFloat(document.getElementById('nfPrecoUn').value)||0,precoCento:parseFloat(document.getElementById('nfPrecoCento').value)||0,usarMassa:document.getElementById('nfMassa').value==='1',recheioId:document.getElementById('nfRecheio').value,ingredientes:JSON.parse(JSON.stringify(nfIngs))};
-const idx=DB.fichas.findIndex(f=>f.id===ficha.id);if(idx>=0)DB.fichas[idx]=ficha;else DB.fichas.push(ficha);saveDB();updateHeader();limparFicha();toast('Ficha salva!');showPage('fichas',document.querySelectorAll('nav button')[2])}
-function limparFicha(){['nfNome','nfPrecoUn','nfPrecoCento'].forEach(id=>document.getElementById(id).value='');document.getElementById('nfRend').value='100';document.getElementById('nfEditId').value='';document.getElementById('nfTipo').selectedIndex=0;document.getElementById('nfCat').selectedIndex=0;document.getElementById('nfTam').selectedIndex=0;document.getElementById('nfMassa').selectedIndex=0;document.getElementById('nfRecheio').selectedIndex=0;nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()}
+const f={id:document.getElementById('nfEditId').value||Date.now().toString(),nome,tipo:document.getElementById('nfTipo').value,categoria:document.getElementById('nfCat').value,tamanho:document.getElementById('nfTam').value,rendimento:parseFloat(document.getElementById('nfRend').value)||100,precoUn:parseFloat(document.getElementById('nfPrecoUn').value)||0,precoCento:parseFloat(document.getElementById('nfPrecoCento').value)||0,tipoMassa:document.getElementById('nfMassa').value,recheioId:document.getElementById('nfRecheio').value,ingredientes:JSON.parse(JSON.stringify(nfIngs))};
+const idx=DB.fichas.findIndex(x=>x.id===f.id);if(idx>=0)DB.fichas[idx]=f;else DB.fichas.push(f);saveDB();updateHeader();limparFicha();toast('Ficha salva!');showPage('fichas',document.querySelectorAll('nav button')[2])}
+function limparFicha(){['nfNome','nfPrecoUn','nfPrecoCento'].forEach(id=>document.getElementById(id).value='');document.getElementById('nfRend').value='100';document.getElementById('nfEditId').value='';document.getElementById('nfTipo').selectedIndex=0;document.getElementById('nfCat').selectedIndex=0;document.getElementById('nfTam').selectedIndex=0;document.getElementById('nfMassa').selectedIndex=0;document.getElementById('nfRecheio').selectedIndex=0;nfIngs=[{insumoId:'',qtd:0}];renderNFI();calcFicha()}
 
-// ===== FICHAS LISTA =====
+// FICHAS LISTA
 let ficFiltro='todas';
 function filtrarFichas(f,btn){ficFiltro=f;document.querySelectorAll('#ficFiltros .pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');renderFichas()}
-function getFichaCustos(f){let custoIng=0;(f.ingredientes||[]).forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoIng+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});
-const rend=f.rendimento||1;let custoMassa=f.usarMassa?getMassaCustoPorTamanho(f.tamanho)*rend:0;let custoRecheio=f.recheioId?getRecheioCustoPorTamanho(f.recheioId,f.tamanho)*rend:0;const custoFixo=getCustoFixoPorUn()*rend;const total=custoIng+custoMassa+custoRecheio+custoFixo;const custoUn=total/rend;const precoRef=f.precoUn||f.precoCento/100;const lucro=precoRef-custoUn;const cmv=precoRef>0?custoUn/precoRef*100:0;const margem=precoRef>0?lucro/precoRef*100:0;return{custoIng,custoMassa,custoRecheio,custoFixo,total,custoUn,custoCento:custoUn*100,precoRef,lucro,cmv,margem}}
+function getFCustos(f){let cIng=0;(f.ingredientes||[]).forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(ins)cIng+=cpu(ins)*(ing.qtd||0)});
+const rend=f.rendimento||1;let cM=f.tipoMassa?getMassaCusto(f.tipoMassa,f.tamanho)*rend:0;let cR=f.recheioId?getRecCusto(f.recheioId,f.tamanho)*rend:0;const cF=getCFUn()*rend;const t=cIng+cM+cR+cF;const cUn=t/rend;const pRef=f.precoUn||f.precoCento/100;const lucro=pRef-cUn;const cmv=pRef>0?cUn/pRef*100:0;return{cIng,cM,cR,cF,t,cUn,cCento:cUn*100,pRef,lucro,cmv,marg:pRef>0?lucro/pRef*100:0}}
 function renderFichas(){const busca=(document.getElementById('ficBusca')?.value||'').toLowerCase();let lista=DB.fichas.filter(f=>f.nome.toLowerCase().includes(busca));
-const counts={todas:DB.fichas.length,Frito:DB.fichas.filter(f=>f.tipo==='Frito').length,Assado:DB.fichas.filter(f=>f.tipo==='Assado').length,Congelado:DB.fichas.filter(f=>f.tipo==='Congelado').length};
-document.getElementById('fAll').textContent=counts.todas;document.getElementById('fFrito').textContent=counts.Frito;document.getElementById('fAssado').textContent=counts.Assado;document.getElementById('fCongelado').textContent=counts.Congelado;
-if(ficFiltro!=='todas')lista=lista.filter(f=>f.tipo===ficFiltro);
-const el=document.getElementById('fichasLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">📋</div>Nenhuma ficha</div>';return}
-let html='';lista.forEach(f=>{const c=getFichaCustos(f);const badgeClass=f.tipo==='Frito'?'badge-frito':f.tipo==='Assado'?'badge-assado':'badge-congelado';
-html+=`<div class="ficha-card"><div class="fc-info"><h3>🥟 ${f.nome}</h3><div class="fc-meta"><span class="badge ${badgeClass}">${f.tipo}</span><span>📁 ${f.categoria}</span><span>📏 ${f.tamanho}</span><span>📦 ${f.rendimento} un</span></div></div><div class="fc-costs"><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--red)">R$ ${c.custoUn.toFixed(2)}</div><div class="fc-cost-label">Custo/Un</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--primary)">R$ ${c.custoCento.toFixed(2)}</div><div class="fc-cost-label">Custo/100</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:${c.cmv<=30?'var(--green)':c.cmv<=40?'var(--primary)':'var(--red)'}">${c.cmv.toFixed(1)}%</div><div class="fc-cost-label">CMV</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--green)">R$ ${c.lucro.toFixed(2)}</div><div class="fc-cost-label">Lucro</div></div></div><div class="fc-actions"><button class="btn btn-primary btn-sm" onclick="editFicha('${f.id}')">✏️</button><button class="btn btn-green btn-sm" onclick="dupFicha('${f.id}')">📋</button><button class="btn btn-red btn-sm" onclick="delFicha('${f.id}')">🗑️</button></div></div>`});el.innerHTML=html}
-function editFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;document.getElementById('nfEditId').value=f.id;document.getElementById('nfNome').value=f.nome;document.getElementById('nfTipo').value=f.tipo;document.getElementById('nfCat').value=f.categoria;document.getElementById('nfTam').value=f.tamanho;document.getElementById('nfRend').value=f.rendimento;document.getElementById('nfPrecoUn').value=f.precoUn;document.getElementById('nfPrecoCento').value=f.precoCento;document.getElementById('nfMassa').value=f.usarMassa?'1':'0';nfIngs=JSON.parse(JSON.stringify(f.ingredientes||[{insumoId:'',qtd:0}]));showPage('novaFicha',document.querySelectorAll('nav button')[3]);setTimeout(()=>{document.getElementById('nfRecheio').value=f.recheioId||'';renderNFIngs();calcFicha()},100)}
-function dupFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;const n=JSON.parse(JSON.stringify(f));n.id=Date.now().toString();n.nome=f.nome+' (cópia)';DB.fichas.push(n);saveDB();updateHeader();renderFichas();toast('Ficha duplicada!')}
-function delFicha(id){if(!confirm('Excluir esta ficha?'))return;DB.fichas=DB.fichas.filter(f=>f.id!==id);saveDB();updateHeader();renderFichas();toast('Ficha excluída!')}
+document.getElementById('fAll').textContent=DB.fichas.length;document.getElementById('fFrito').textContent=DB.fichas.filter(f=>f.tipo==='Frito').length;document.getElementById('fAssado').textContent=DB.fichas.filter(f=>f.tipo==='Assado').length;
+if(ficFiltro!=='todas')lista=lista.filter(f=>f.tipo===ficFiltro);const el=document.getElementById('fichasLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">📋</div>Nenhuma ficha</div>';return}
+let h='';lista.forEach(f=>{const c=getFCustos(f);const bc=f.tipo==='Frito'?'badge-frito':'badge-assado';
+h+=`<div class="ficha-card"><div class="fc-info"><h3>🥟 ${f.nome}</h3><div class="fc-meta"><span class="badge ${bc}">${f.tipo}</span><span>📁 ${f.categoria}</span><span>📏 ${f.tamanho}</span><span>📦 ${f.rendimento}un</span></div></div><div class="fc-costs"><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--red)">R$ ${c.cUn.toFixed(2)}</div><div class="fc-cost-label">Custo/Un</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--primary)">R$ ${c.cCento.toFixed(2)}</div><div class="fc-cost-label">Custo/100</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:${c.cmv<=30?'var(--green)':c.cmv<=40?'var(--primary)':'var(--red)'}">${c.cmv.toFixed(1)}%</div><div class="fc-cost-label">CMV</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--green)">R$ ${c.lucro.toFixed(2)}</div><div class="fc-cost-label">Lucro</div></div></div><div class="fc-actions"><button class="btn btn-primary btn-sm" onclick="editFicha('${f.id}')">✏️</button><button class="btn btn-green btn-sm" onclick="dupFicha('${f.id}')">📋</button><button class="btn btn-red btn-sm" onclick="delFicha('${f.id}')">🗑️</button></div></div>`});el.innerHTML=h}
+function editFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;document.getElementById('nfEditId').value=f.id;document.getElementById('nfNome').value=f.nome;document.getElementById('nfTipo').value=f.tipo;document.getElementById('nfCat').value=f.categoria;document.getElementById('nfTam').value=f.tamanho;document.getElementById('nfRend').value=f.rendimento;document.getElementById('nfPrecoUn').value=f.precoUn;document.getElementById('nfPrecoCento').value=f.precoCento;document.getElementById('nfMassa').value=f.tipoMassa||'';nfIngs=JSON.parse(JSON.stringify(f.ingredientes||[{insumoId:'',qtd:0}]));showPage('novaFicha',document.querySelectorAll('nav button')[3]);setTimeout(()=>{document.getElementById('nfRecheio').value=f.recheioId||'';renderNFI();calcFicha()},100)}
+function dupFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;const n=JSON.parse(JSON.stringify(f));n.id=Date.now().toString();n.nome+=' (cópia)';DB.fichas.push(n);saveDB();updateHeader();renderFichas();toast('Ficha duplicada!')}
+function delFicha(id){if(!confirm('Excluir?'))return;DB.fichas=DB.fichas.filter(f=>f.id!==id);saveDB();updateHeader();renderFichas();toast('Ficha excluída!')}
 
-// ===== DASHBOARD =====
-function updateDashboard(){const counts={Pequeno:0,Medio:0,Grande:0,Festa:0};DB.fichas.forEach(f=>{const t=f.tamanho==='Médio'?'Medio':f.tamanho;if(counts[t]!==undefined)counts[t]++});
-document.getElementById('dPeq').textContent=counts.Pequeno;document.getElementById('dMed').textContent=counts.Medio;document.getElementById('dGra').textContent=counts.Grande;document.getElementById('dFes').textContent=counts.Festa;
-document.getElementById('dsIns').textContent=DB.insumos.length;document.getElementById('dsFic').textContent=DB.fichas.length;
-const cfTotal=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const cfProd=DB.custos.producao||1;document.getElementById('dsCF').textContent='R$ '+(cfTotal/cfProd*100).toFixed(2);
-const mCusto=getMassaCustoPorTamanho('Médio');document.getElementById('dsMassa').textContent='R$ '+mCusto.toFixed(4);
-// Top 5
-const ranked=DB.fichas.map(f=>{const c=getFichaCustos(f);return{...f,...c}}).sort((a,b)=>b.lucro-a.lucro).slice(0,5);
+// DASHBOARD
+function updateDashboard(){let peq=0,med=0;DB.fichas.forEach(f=>{if(f.tamanho==='Pequeno')peq++;else med++});
+document.getElementById('dPeq').textContent=peq;document.getElementById('dMed').textContent=med;document.getElementById('dsIns').textContent=DB.insumos.length;document.getElementById('dsFic').textContent=DB.fichas.length;
+const cfT=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);document.getElementById('dsCF').textContent='R$ '+(cfT/(DB.custos.producao||1)*100).toFixed(2);
+document.getElementById('dsMC').textContent='R$ '+getMassaCusto('cozida','Médio').toFixed(4);
+const ranked=DB.fichas.map(f=>({...f,...getFCustos(f)})).sort((a,b)=>b.lucro-a.lucro).slice(0,5);
 const topEl=document.getElementById('topLucro');if(!ranked.length){topEl.innerHTML='<div class="empty-state"><div class="icon">📋</div>Cadastre fichas</div>';return}
-let html='<table><thead><tr><th>Salgado</th><th>Custo/Un</th><th>Preço</th><th>Lucro</th><th>CMV</th></tr></thead><tbody>';ranked.forEach(f=>{html+=`<tr><td><strong>${f.nome}</strong></td><td>R$ ${f.custoUn.toFixed(2)}</td><td>R$ ${f.precoRef.toFixed(2)}</td><td style="color:var(--green);font-weight:700">R$ ${f.lucro.toFixed(2)}</td><td style="color:${f.cmv<=30?'var(--green)':f.cmv<=40?'var(--primary)':'var(--red)'}">${f.cmv.toFixed(1)}%</td></tr>`});html+='</tbody></table>';topEl.innerHTML=html}
+let h='<table><thead><tr><th>Salgado</th><th>Custo/Un</th><th>Preço</th><th>Lucro</th><th>CMV</th></tr></thead><tbody>';ranked.forEach(f=>{h+=`<tr><td><strong>${f.nome}</strong></td><td>R$ ${f.cUn.toFixed(2)}</td><td>R$ ${f.pRef.toFixed(2)}</td><td style="color:var(--green);font-weight:700">R$ ${f.lucro.toFixed(2)}</td><td style="color:${f.cmv<=30?'var(--green)':f.cmv<=40?'var(--primary)':'var(--red)'}">${f.cmv.toFixed(1)}%</td></tr>`});topEl.innerHTML=h+'</tbody></table>'}
 updateDashboard();
 
-// ===== PRECIFICAR =====
+// PRECIFICAR
 function initPrec(){const sel=document.getElementById('prFicha');sel.innerHTML='<option value="">-- Selecione --</option>';DB.fichas.forEach(f=>{sel.innerHTML+=`<option value="${f.id}">${f.nome}</option>`});calcPrec()}
-function calcPrec(){const custo=parseFloat(document.getElementById('prCusto').value)||0;const cmv=parseFloat(document.getElementById('prCMV').value)||30;document.getElementById('prCMVVal').textContent=cmv+'%';const preco=cmv>0?custo/(cmv/100):0;const lucro=preco-custo;document.getElementById('prPreco').textContent='R$ '+preco.toFixed(2).replace('.',',');document.getElementById('prLucro').textContent='Lucro: R$ '+lucro.toFixed(2).replace('.',',')}
-function precFicha(){const id=document.getElementById('prFicha').value;const el=document.getElementById('prFichaResult');if(!id){el.innerHTML='';return}const f=DB.fichas.find(x=>x.id===id);if(!f){el.innerHTML='';return}const c=getFichaCustos(f);
-el.innerHTML=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val red">R$ ${c.custoUn.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange">R$ ${c.custoCento.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Atual</div><div class="r-val blue">R$ ${c.precoRef.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">CMV</div><div class="r-val ${c.cmv<=30?'green':c.cmv<=40?'orange':'red'}">${c.cmv.toFixed(1)}%</div></div><div class="resumo-item"><div class="r-label">Lucro</div><div class="r-val ${c.lucro>=0?'green':'red'}">R$ ${c.lucro.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Ideal (30%)</div><div class="r-val green">R$ ${(c.custoUn/0.3).toFixed(2)}</div></div></div></div>`}
+function calcPrec(){const c=parseFloat(document.getElementById('prCusto').value)||0;const cmv=parseFloat(document.getElementById('prCMV').value)||30;document.getElementById('prCMVVal').textContent=cmv+'%';const p=cmv>0?c/(cmv/100):0;document.getElementById('prPreco').textContent='R$ '+p.toFixed(2).replace('.',',');document.getElementById('prLucro').textContent='Lucro: R$ '+(p-c).toFixed(2).replace('.',',')}
+function precFicha(){const id=document.getElementById('prFicha').value;const el=document.getElementById('prFichaResult');if(!id){el.innerHTML='';return}const f=DB.fichas.find(x=>x.id===id);if(!f){el.innerHTML='';return}const c=getFCustos(f);
+el.innerHTML=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val red">R$ ${c.cUn.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange">R$ ${c.cCento.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Atual</div><div class="r-val blue">R$ ${c.pRef.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">CMV</div><div class="r-val ${c.cmv<=30?'green':c.cmv<=40?'orange':'red'}">${c.cmv.toFixed(1)}%</div></div><div class="resumo-item"><div class="r-label">Lucro</div><div class="r-val ${c.lucro>=0?'green':'red'}">R$ ${c.lucro.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Ideal (30%)</div><div class="r-val green">R$ ${(c.cUn/0.3).toFixed(2)}</div></div></div></div>`}
 
-// ===== CONFIG =====
+// CONFIG
 function salvarCredenciais(){const u=document.getElementById('cfgUser').value.trim();const p=document.getElementById('cfgPass').value;if(!u||!p){toast('Preencha usuário e senha!','error');return}localStorage.setItem('salgadoControlCredentials',JSON.stringify({user:u,pass:p}));toast('Credenciais salvas!')}
-function exportarDados(){const data=JSON.stringify(DB,null,2);const blob=new Blob([data],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='salgadocontrol_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('Dados exportados!')}
-function importarDados(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){try{DB=JSON.parse(ev.target.result);saveDB();updateHeader();toast('Dados importados! Recarregando...');setTimeout(()=>location.reload(),1500)}catch(err){toast('Arquivo inválido!','error')}};reader.readAsText(file)}
+function exportarDados(){const d=JSON.stringify(DB,null,2);const b=new Blob([d],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='salgadocontrol_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u);toast('Dados exportados!')}
+function importarDados(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=function(ev){try{DB=JSON.parse(ev.target.result);saveDB();updateHeader();toast('Importado! Recarregando...');setTimeout(()=>location.reload(),1500)}catch(err){toast('Arquivo inválido!','error')}};r.readAsText(file)}
 function limparTudo(){if(!confirm('Tem certeza? Todos os dados serão apagados!'))return;localStorage.removeItem('salgadoControlDB');location.reload()}
 </script>
 </body>
