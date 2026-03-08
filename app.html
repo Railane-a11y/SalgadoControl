@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ðŸ¥Ÿ SalgadoControl - Sistema Completo</title>
+<title>🥟 SalgadoControl - Sistema Completo</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -62,7 +62,7 @@ td{padding:12px;border-bottom:1px solid #eee;font-size:0.9rem}
 tr:hover{background:rgba(230,126,34,0.05)}
 .search-box{position:relative;margin-bottom:20px}
 .search-box input{padding-left:45px}
-.search-box::before{content:'ðŸ”';position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:1.1rem}
+.search-box::before{content:'🔍';position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:1.1rem}
 .filter-pills{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .pill{padding:8px 18px;border-radius:20px;border:2px solid #e0e0e0;background:white;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;transition:all 0.3s}
 .pill.active{background:var(--secondary);color:white;border-color:var(--secondary)}
@@ -131,32 +131,32 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 </head>
 <body>
 <div class="top-header">
-<h1>ðŸ¥Ÿ Salgado<span>Control</span></h1>
+<h1>🥟 Salgado<span>Control</span></h1>
 <div class="header-stats">
 <div class="header-stat"><span class="val" id="hInsumos">0</span>Insumos</div>
 <div class="header-stat"><span class="val" id="hFichas">0</span>Fichas</div>
 <div class="header-stat"><span class="val" id="hCustoFixo">R$ 0.00</span>Custo Fixo</div>
 </div>
-<button class="btn-logout" onclick="logout()">ðŸšª Sair</button>
+<button class="btn-logout" onclick="logout()">🚪 Sair</button>
 </div>
 <nav id="mainNav">
-<button class="active" onclick="showPage('dashboard',this)">ðŸ“Š Dashboard</button>
-<button onclick="showPage('insumos',this)">ðŸ“¦ Insumos</button>
-<button onclick="showPage('fichas',this)">ðŸ“‹ Fichas</button>
-<button onclick="showPage('novaFicha',this)">âž• Nova Ficha</button>
-<button onclick="showPage('massa',this)">ðŸ¥– Massa</button>
-<button onclick="showPage('recheio',this)">ðŸ§† Recheios</button>
-<button onclick="showPage('custos',this)">ðŸ’¼ Custos Fixos</button>
-<button onclick="showPage('precificar',this)">ðŸ’° Precificar</button>
-<button onclick="showPage('config',this)">âš™ï¸ Config</button>
+<button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+<button onclick="showPage('insumos',this)">📦 Insumos</button>
+<button onclick="showPage('fichas',this)">📋 Fichas</button>
+<button onclick="showPage('novaFicha',this)">➕ Nova Ficha</button>
+<button onclick="showPage('massa',this)">🥖 Massa</button>
+<button onclick="showPage('recheio',this)">🧆 Recheios</button>
+<button onclick="showPage('custos',this)">💼 Custos Fixos</button>
+<button onclick="showPage('precificar',this)">💰 Precificar</button>
+<button onclick="showPage('config',this)">⚙️ Config</button>
 </nav>
 
 <!-- DASHBOARD -->
 <div class="page active" id="pg-dashboard">
-<div class="card"><div class="card-header orange">ðŸ“Š VisÃ£o Geral</div>
+<div class="card"><div class="card-header orange">📊 Visão Geral</div>
 <div class="grid-4" id="dashCounters">
 <div class="stat-card green"><div class="stat-val" id="dPeq">0</div><div class="stat-label">Pequenos</div></div>
-<div class="stat-card blue"><div class="stat-val" id="dMed">0</div><div class="stat-label">MÃ©dios</div></div>
+<div class="stat-card blue"><div class="stat-val" id="dMed">0</div><div class="stat-label">Médios</div></div>
 <div class="stat-card orange"><div class="stat-val" id="dGra">0</div><div class="stat-label">Grandes</div></div>
 <div class="stat-card purple"><div class="stat-val" id="dFes">0</div><div class="stat-label">Festa</div></div>
 </div>
@@ -166,15 +166,15 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <div class="stat-card"><div class="stat-label">Custo Fixo/Cento</div><div class="stat-val red" id="dsCF">R$ 0.00</div></div>
 <div class="stat-card"><div class="stat-label">Massa Base</div><div class="stat-val orange" id="dsMassa">R$ 0.00</div></div>
 </div></div>
-<div class="card"><div class="card-header green">ðŸ† Top 5 Mais Lucrativos</div>
-<div id="topLucro"><div class="empty-state"><div class="icon">ðŸ“‹</div>Cadastre fichas</div></div>
+<div class="card"><div class="card-header green">🏆 Top 5 Mais Lucrativos</div>
+<div id="topLucro"><div class="empty-state"><div class="icon">📋</div>Cadastre fichas</div></div>
 </div></div>
 
 <!-- INSUMOS -->
 <div class="page" id="pg-insumos">
-<div class="card"><div class="card-header orange">ðŸ“¦ Gerenciar Insumos</div>
+<div class="card"><div class="card-header orange">📦 Gerenciar Insumos</div>
 <div class="card" style="background:#f8f9fa;border:2px dashed #ddd">
-<h3 style="margin-bottom:15px">ðŸ“¦ Novo Insumo</h3>
+<h3 style="margin-bottom:15px">📦 Novo Insumo</h3>
 <div class="form-row">
 <div class="form-group"><label>Nome</label><input id="insNome" placeholder="Ex: Farinha de trigo"></div>
 <div class="form-group"><label>Categoria</label><select id="insCat"><option>Massas</option><option>Recheios</option><option>Frituras</option><option>Temperos</option><option>Embalagens</option><option>Outros</option></select></div>
@@ -182,10 +182,10 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 </div>
 <div class="form-row">
 <div class="form-group"><label>Qtd por Embalagem</label><input id="insQtd" type="number" step="any" placeholder="Ex: 1"></div>
-<div class="form-group"><label>PreÃ§o da Embalagem (R$)</label><input id="insPreco" type="number" step="0.01" placeholder="Ex: 5.90"></div>
+<div class="form-group"><label>Preço da Embalagem (R$)</label><input id="insPreco" type="number" step="0.01" placeholder="Ex: 5.90"></div>
 </div>
-<button class="btn btn-primary" onclick="salvarInsumo()">ðŸ’¾ Salvar Insumo</button>
-<button class="btn btn-gray" onclick="limparFormInsumo()">ðŸ§¹ Limpar</button>
+<button class="btn btn-primary" onclick="salvarInsumo()">💾 Salvar Insumo</button>
+<button class="btn btn-gray" onclick="limparFormInsumo()">🧹 Limpar</button>
 <input type="hidden" id="insEditId" value="">
 </div>
 <div class="search-box"><input id="insBusca" placeholder="Buscar insumo..." oninput="renderInsumos()"></div>
@@ -194,43 +194,43 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 
 <!-- FICHAS -->
 <div class="page" id="pg-fichas">
-<div class="card"><div class="card-header orange">ðŸ“‹ Fichas TÃ©cnicas</div>
+<div class="card"><div class="card-header orange">📋 Fichas Técnicas</div>
 <div class="search-box"><input id="ficBusca" placeholder="Buscar ficha..." oninput="renderFichas()"></div>
 <div class="filter-pills" id="ficFiltros">
 <button class="pill active" onclick="filtrarFichas('todas',this)">Todas <span class="count" id="fAll">0</span></button>
-<button class="pill" onclick="filtrarFichas('Frito',this)">ðŸ³ Frito <span class="count" id="fFrito">0</span></button>
-<button class="pill" onclick="filtrarFichas('Assado',this)">ðŸ”¥ Assado <span class="count" id="fAssado">0</span></button>
-<button class="pill" onclick="filtrarFichas('Congelado',this)">â„ï¸ Congelado <span class="count" id="fCongelado">0</span></button>
+<button class="pill" onclick="filtrarFichas('Frito',this)">🍳 Frito <span class="count" id="fFrito">0</span></button>
+<button class="pill" onclick="filtrarFichas('Assado',this)">🔥 Assado <span class="count" id="fAssado">0</span></button>
+<button class="pill" onclick="filtrarFichas('Congelado',this)">❄️ Congelado <span class="count" id="fCongelado">0</span></button>
 </div>
 <div id="fichasLista"></div>
 </div></div>
 
 <!-- NOVA FICHA -->
 <div class="page" id="pg-novaFicha">
-<div class="card"><div class="card-header orange">âž• Nova Ficha TÃ©cnica</div>
+<div class="card"><div class="card-header orange">➕ Nova Ficha Técnica</div>
 <div class="form-row">
 <div class="form-group"><label>Nome do Salgado</label><input id="nfNome" placeholder="Ex: Coxinha de Frango"></div>
 <div class="form-group"><label>Tipo</label><select id="nfTipo"><option>Frito</option><option>Assado</option><option>Congelado</option></select></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Categoria</label><select id="nfCat"><option>Coxinha</option><option>Bolinha</option><option>Kibe</option><option>Risole</option><option>Pastel</option><option>Empada</option><option>Enroladinho</option><option>Outro</option></select></div>
-<div class="form-group"><label>Tamanho</label><select id="nfTam"><option>Pequeno</option><option>MÃ©dio</option><option>Grande</option><option>Festa</option></select></div>
+<div class="form-group"><label>Tamanho</label><select id="nfTam"><option>Pequeno</option><option>Médio</option><option>Grande</option><option>Festa</option></select></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Rendimento (unidades por receita)</label><input id="nfRend" type="number" value="100" placeholder="100"></div>
-<div class="form-group"><label>PreÃ§o de Venda (unidade R$)</label><input id="nfPrecoUn" type="number" step="0.01" placeholder="Ex: 5.00" oninput="calcFicha()"></div>
-<div class="form-group"><label>PreÃ§o por Cento (R$)</label><input id="nfPrecoCento" type="number" step="0.01" placeholder="Ex: 350.00" oninput="calcFicha()"></div>
+<div class="form-group"><label>Preço de Venda (unidade R$)</label><input id="nfPrecoUn" type="number" step="0.01" placeholder="Ex: 5.00" oninput="calcFicha()"></div>
+<div class="form-group"><label>Preço por Cento (R$)</label><input id="nfPrecoCento" type="number" step="0.01" placeholder="Ex: 350.00" oninput="calcFicha()"></div>
 </div>
 <div class="form-row">
-<div class="form-group"><label>Incluir Massa Base?</label><select id="nfMassa" onchange="calcFicha()"><option value="1">âœ… Sim</option><option value="0">âŒ NÃ£o</option></select></div>
-<div class="form-group"><label>Incluir Recheio Base?</label><select id="nfRecheio" onchange="calcFicha()"><option value="">âŒ NÃ£o</option></select></div>
+<div class="form-group"><label>Incluir Massa Base?</label><select id="nfMassa" onchange="calcFicha()"><option value="1">✅ Sim</option><option value="0">❌ Não</option></select></div>
+<div class="form-group"><label>Incluir Recheio Base?</label><select id="nfRecheio" onchange="calcFicha()"><option value="">❌ Não</option></select></div>
 </div>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
-<h3 style="margin-bottom:15px">ðŸ§€ Ingredientes Adicionais</h3>
+<h3 style="margin-bottom:15px">🧀 Ingredientes Adicionais</h3>
 <div id="nfIngredientes"></div>
 <button class="btn btn-primary btn-sm" onclick="addIngredienteFicha()" style="margin-bottom:15px">+ Ingrediente</button>
 <div class="resumo-box">
-<div style="text-align:center;font-size:1.1rem;font-weight:700">ðŸ“Š Resumo Completo</div>
+<div style="text-align:center;font-size:1.1rem;font-weight:700">📊 Resumo Completo</div>
 <div class="resumo-grid">
 <div class="resumo-item"><div class="r-label">Ingredientes</div><div class="r-val red" id="nfRIng">R$ 0</div></div>
 <div class="resumo-item"><div class="r-label">Massa</div><div class="r-val blue" id="nfRMassa">R$ 0</div></div>
@@ -239,64 +239,64 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <div class="resumo-item"><div class="r-label">CUSTO TOTAL</div><div class="r-val red" id="nfRTotal">R$ 0</div></div>
 <div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val orange" id="nfRUn">R$ 0</div></div>
 <div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange" id="nfRCento">R$ 0</div></div>
-<div class="resumo-item"><div class="r-label">PreÃ§o Venda</div><div class="r-val blue" id="nfRVenda">R$ 0</div></div>
+<div class="resumo-item"><div class="r-label">Preço Venda</div><div class="r-val blue" id="nfRVenda">R$ 0</div></div>
 <div class="resumo-item"><div class="r-label">LUCRO REAL</div><div class="r-val green" id="nfRLucro">R$ 0</div></div>
 <div class="resumo-item"><div class="r-label">CMV</div><div class="r-val" id="nfRCMV">0%</div><div class="cmv-bar"><div class="cmv-bar-fill" id="nfCMVBar" style="width:0;background:#2ecc71"></div></div></div>
 <div class="resumo-item"><div class="r-label">Margem</div><div class="r-val green" id="nfRMarg">0%</div></div>
 </div></div>
 <div style="display:flex;gap:10px;margin-top:20px">
-<button class="btn btn-green btn-block" onclick="salvarFicha()">ðŸ’¾ Salvar Ficha</button>
-<button class="btn btn-gray" onclick="limparFicha()">ðŸ—‘ï¸ Limpar</button>
+<button class="btn btn-green btn-block" onclick="salvarFicha()">💾 Salvar Ficha</button>
+<button class="btn btn-gray" onclick="limparFicha()">🗑️ Limpar</button>
 </div>
 <input type="hidden" id="nfEditId" value="">
 </div></div>
 
 <!-- MASSA -->
 <div class="page" id="pg-massa">
-<div class="card"><div class="card-header orange">ðŸ¥– Receita Base da Massa</div>
-<h3 style="margin-bottom:15px">ðŸ“ Ingredientes da Receita</h3>
+<div class="card"><div class="card-header orange">🥖 Receita Base da Massa</div>
+<h3 style="margin-bottom:15px">📝 Ingredientes da Receita</h3>
 <div id="massaIngredientes"></div>
 <button class="btn btn-primary btn-sm" onclick="addIngMassa()" style="margin-bottom:20px">+ Ingrediente</button>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
-<div class="form-group"><label>âš–ï¸ Peso TOTAL dessa receita (em gramas)</label><input id="massaPeso" type="number" value="3000" oninput="calcMassa()" placeholder="Ex: 3000"></div>
+<div class="form-group"><label>⚖️ Peso TOTAL dessa receita (em gramas)</label><input id="massaPeso" type="number" value="3000" oninput="calcMassa()" placeholder="Ex: 3000"></div>
 <small style="color:var(--text-light)">Informe a soma de todos os ingredientes em gramas.</small>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
-<h4>ðŸ¥Ÿ Gramas de massa por salgado:</h4>
+<h4>🥟 Gramas de massa por salgado:</h4>
 <div class="form-row" style="margin-top:10px">
-<div class="form-group"><label>ðŸŸ¢ Pequeno</label><input id="mPeq" type="number" value="20" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>ðŸ”µ MÃ©dio</label><input id="mMed" type="number" value="30" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>ðŸŸ  Grande</label><input id="mGra" type="number" value="40" oninput="calcMassa()"><small>gramas</small></div>
-<div class="form-group"><label>ðŸŸ£ Festa</label><input id="mFes" type="number" value="60" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>🟢 Pequeno</label><input id="mPeq" type="number" value="20" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>🔵 Médio</label><input id="mMed" type="number" value="30" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>🟠 Grande</label><input id="mGra" type="number" value="40" oninput="calcMassa()"><small>gramas</small></div>
+<div class="form-group"><label>🟣 Festa</label><input id="mFes" type="number" value="60" oninput="calcMassa()"><small>gramas</small></div>
 </div>
 <div class="resumo-box">
-<div style="text-align:center;font-size:1.1rem;font-weight:700">ðŸ“Š Resultado do CÃ¡lculo</div>
+<div style="text-align:center;font-size:1.1rem;font-weight:700">📊 Resultado do Cálculo</div>
 <div class="resumo-grid">
 <div class="resumo-item"><div class="r-label">Custo Total da Receita</div><div class="r-val blue" id="mCustoTotal">R$ 0.00</div></div>
 <div class="resumo-item"><div class="r-label">Peso Total</div><div class="r-val green" id="mPesoTotal">3000 g</div></div>
 <div class="resumo-item"><div class="r-label">Custo por Grama</div><div class="r-val orange" id="mCustoGrama">R$ 0.0000</div></div>
 </div>
-<div style="text-align:center;margin-top:15px;font-weight:700">ðŸ’° Custo da Massa por Tamanho</div>
+<div style="text-align:center;margin-top:15px;font-weight:700">💰 Custo da Massa por Tamanho</div>
 <div class="resumo-grid">
 <div class="resumo-item"><div class="r-label">Pequeno</div><div class="r-val green" id="mCPeq">R$ 0.00</div></div>
-<div class="resumo-item"><div class="r-label">MÃ©dio</div><div class="r-val blue" id="mCMed">R$ 0.00</div></div>
+<div class="resumo-item"><div class="r-label">Médio</div><div class="r-val blue" id="mCMed">R$ 0.00</div></div>
 <div class="resumo-item"><div class="r-label">Grande</div><div class="r-val orange" id="mCGra">R$ 0.00</div></div>
 <div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple" id="mCFes">R$ 0.00</div></div>
 </div></div>
-<button class="btn btn-green btn-block" onclick="salvarMassa()" style="margin-top:15px">ðŸ’¾ Salvar Massa</button>
+<button class="btn btn-green btn-block" onclick="salvarMassa()" style="margin-top:15px">💾 Salvar Massa</button>
 </div></div>
 
 <!-- RECHEIOS -->
 <div class="page" id="pg-recheio">
-<div class="card"><div class="card-header purple">ðŸ§† Receitas de Recheios Base</div>
-<button class="btn btn-primary" onclick="novoRecheio()" style="margin-bottom:20px">âž• Novo Recheio</button>
+<div class="card"><div class="card-header purple">🧆 Receitas de Recheios Base</div>
+<button class="btn btn-primary" onclick="novoRecheio()" style="margin-bottom:20px">➕ Novo Recheio</button>
 <div id="recheiosLista"></div>
 </div></div>
 
 <!-- CUSTOS FIXOS -->
 <div class="page" id="pg-custos">
-<div class="card"><div class="card-header dark">ðŸ’¼ Custos Fixos Mensais</div>
+<div class="card"><div class="card-header dark">💼 Custos Fixos Mensais</div>
 <p style="margin-bottom:15px;color:var(--text-light);font-size:0.9rem">Informe seus gastos mensais para calcular o rateio por unidade/cento.</p>
-<div class="form-group"><label>ðŸ“¦ ProduÃ§Ã£o Mensal (unidades)</label><input id="cfProducao" type="number" value="1000" oninput="calcCustos()" placeholder="Ex: 1000"></div>
+<div class="form-group"><label>📦 Produção Mensal (unidades)</label><input id="cfProducao" type="number" value="1000" oninput="calcCustos()" placeholder="Ex: 1000"></div>
 <hr style="margin:20px 0;border:none;border-top:2px solid #eee">
 <div id="custosFixosLista"></div>
 <div class="resumo-box" style="margin-top:20px">
@@ -305,44 +305,44 @@ nav{gap:0}nav button{padding:10px 12px;font-size:0.78rem}
 <div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val orange" id="cfUnidade">R$ 0.00</div></div>
 <div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val yellow" id="cfCento">R$ 0.00</div></div>
 </div></div>
-<button class="btn btn-green btn-block" onclick="salvarCustos()" style="margin-top:15px">ðŸ’¾ Salvar Custos</button>
+<button class="btn btn-green btn-block" onclick="salvarCustos()" style="margin-top:15px">💾 Salvar Custos</button>
 </div></div>
 
 <!-- PRECIFICAR -->
 <div class="page" id="pg-precificar">
 <div class="card" style="background:#e8f5e9;border:2px solid #c8e6c9;margin-bottom:20px">
-<span>ðŸ’° Use as calculadoras para encontrar o preÃ§o ideal. CMV recomendado: <strong>25% a 35%</strong></span>
+<span>💰 Use as calculadoras para encontrar o preço ideal. CMV recomendado: <strong>25% a 35%</strong></span>
 </div>
 <div class="grid-2">
-<div class="card"><div class="card-header orange">ðŸ“Š Calcular por CMV</div>
+<div class="card"><div class="card-header orange">📊 Calcular por CMV</div>
 <div class="form-group"><label>Custo Total (R$)</label><input id="prCusto" type="number" step="0.01" value="18.00" oninput="calcPrec()"></div>
 <div class="slider-container">
 <label>CMV Desejado: <span id="prCMVVal" style="color:var(--primary);font-weight:700">30%</span></label>
 <input type="range" id="prCMV" min="15" max="60" value="30" oninput="calcPrec()">
 </div>
 <div class="resumo-box">
-<div style="text-align:center"><div class="r-label">PreÃ§o Sugerido</div><div class="r-val green" style="font-size:2rem" id="prPreco">R$ 0,00</div><div class="r-label" id="prLucro">Lucro: R$ 0,00</div></div>
+<div style="text-align:center"><div class="r-label">Preço Sugerido</div><div class="r-val green" style="font-size:2rem" id="prPreco">R$ 0,00</div><div class="r-label" id="prLucro">Lucro: R$ 0,00</div></div>
 </div></div>
-<div class="card"><div class="card-header purple">ðŸ“‹ Precificar Ficha</div>
+<div class="card"><div class="card-header purple">📋 Precificar Ficha</div>
 <div class="form-group"><label>Selecione uma Ficha</label><select id="prFicha" onchange="precFicha()"><option value="">-- Selecione --</option></select></div>
 <div id="prFichaResult"></div>
 </div></div></div>
 
 <!-- CONFIG -->
 <div class="page" id="pg-config">
-<div class="card"><div class="card-header dark">ðŸ” Alterar Credenciais de Login</div>
+<div class="card"><div class="card-header dark">🔐 Alterar Credenciais de Login</div>
 <div class="form-row">
-<div class="form-group"><label>Novo UsuÃ¡rio</label><input id="cfgUser" placeholder="admin"></div>
+<div class="form-group"><label>Novo Usuário</label><input id="cfgUser" placeholder="admin"></div>
 <div class="form-group"><label>Nova Senha</label><input id="cfgPass" type="password" placeholder="****"></div>
 </div>
-<button class="btn btn-primary" onclick="salvarCredenciais()">ðŸ’¾ Salvar Credenciais</button>
+<button class="btn btn-primary" onclick="salvarCredenciais()">💾 Salvar Credenciais</button>
 </div>
-<div class="card"><div class="card-header green">ðŸ“¤ Exportar / Importar Dados</div>
+<div class="card"><div class="card-header green">📤 Exportar / Importar Dados</div>
 <div style="display:flex;gap:10px;flex-wrap:wrap">
-<button class="btn btn-green" onclick="exportarDados()">ðŸ“¥ Exportar JSON</button>
-<button class="btn btn-primary" onclick="document.getElementById('importFile').click()">ðŸ“¤ Importar JSON</button>
+<button class="btn btn-green" onclick="exportarDados()">📥 Exportar JSON</button>
+<button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📤 Importar JSON</button>
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="importarDados(event)">
-<button class="btn btn-red" onclick="limparTudo()">ðŸ—‘ï¸ Limpar Tudo</button>
+<button class="btn btn-red" onclick="limparTudo()">🗑️ Limpar Tudo</button>
 </div></div></div>
 
 <div id="toastContainer"></div>
@@ -370,10 +370,10 @@ function getInsumoCustoPorUnidade(ins){return(parseFloat(ins.preco)||0)/(parseFl
 function salvarInsumo(){const n=document.getElementById('insNome').value.trim();if(!n){toast('Informe o nome!','error');return}const ins={id:document.getElementById('insEditId').value||Date.now().toString(),nome:n,categoria:document.getElementById('insCat').value,unidade:document.getElementById('insUni').value,qtdEmb:parseFloat(document.getElementById('insQtd').value)||1,preco:parseFloat(document.getElementById('insPreco').value)||0};const idx=DB.insumos.findIndex(i=>i.id===ins.id);if(idx>=0)DB.insumos[idx]=ins;else DB.insumos.push(ins);saveDB();updateHeader();renderInsumos();limparFormInsumo();toast('Insumo salvo!')}
 function limparFormInsumo(){['insNome','insQtd','insPreco'].forEach(id=>document.getElementById(id).value='');document.getElementById('insEditId').value='';document.getElementById('insCat').selectedIndex=0;document.getElementById('insUni').selectedIndex=0}
 function editarInsumo(id){const ins=DB.insumos.find(i=>i.id===id);if(!ins)return;document.getElementById('insNome').value=ins.nome;document.getElementById('insCat').value=ins.categoria;document.getElementById('insUni').value=ins.unidade;document.getElementById('insQtd').value=ins.qtdEmb;document.getElementById('insPreco').value=ins.preco;document.getElementById('insEditId').value=ins.id;window.scrollTo({top:0,behavior:'smooth'})}
-function deletarInsumo(id){if(!confirm('Excluir este insumo?'))return;DB.insumos=DB.insumos.filter(i=>i.id!==id);saveDB();updateHeader();renderInsumos();toast('Insumo excluÃ­do!')}
-function renderInsumos(){const busca=(document.getElementById('insBusca')?.value||'').toLowerCase();const lista=DB.insumos.filter(i=>i.nome.toLowerCase().includes(busca));const el=document.getElementById('insumosLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ“¦</div>Nenhum insumo cadastrado</div>';return}
-let html='<table><thead><tr><th>Nome</th><th>Categoria</th><th>Unidade</th><th>Qtd Emb</th><th>PreÃ§o Emb</th><th>PreÃ§o/Uni</th><th>AÃ§Ãµes</th></tr></thead><tbody>';
-lista.forEach(i=>{const cpu=getInsumoCustoPorUnidade(i);html+=`<tr><td><strong>${i.nome}</strong></td><td>${i.categoria}</td><td>${i.unidade}</td><td>${i.qtdEmb}</td><td>R$ ${i.preco.toFixed(2)}</td><td style="color:var(--primary);font-weight:700">R$ ${cpu.toFixed(4)}</td><td><button class="btn btn-primary btn-sm" onclick="editarInsumo('${i.id}')">âœï¸</button> <button class="btn btn-red btn-sm" onclick="deletarInsumo('${i.id}')">ðŸ—‘ï¸</button></td></tr>`});
+function deletarInsumo(id){if(!confirm('Excluir este insumo?'))return;DB.insumos=DB.insumos.filter(i=>i.id!==id);saveDB();updateHeader();renderInsumos();toast('Insumo excluído!')}
+function renderInsumos(){const busca=(document.getElementById('insBusca')?.value||'').toLowerCase();const lista=DB.insumos.filter(i=>i.nome.toLowerCase().includes(busca));const el=document.getElementById('insumosLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">📦</div>Nenhum insumo cadastrado</div>';return}
+let html='<table><thead><tr><th>Nome</th><th>Categoria</th><th>Unidade</th><th>Qtd Emb</th><th>Preço Emb</th><th>Preço/Uni</th><th>Ações</th></tr></thead><tbody>';
+lista.forEach(i=>{const cpu=getInsumoCustoPorUnidade(i);html+=`<tr><td><strong>${i.nome}</strong></td><td>${i.categoria}</td><td>${i.unidade}</td><td>${i.qtdEmb}</td><td>R$ ${i.preco.toFixed(2)}</td><td style="color:var(--primary);font-weight:700">R$ ${cpu.toFixed(4)}</td><td><button class="btn btn-primary btn-sm" onclick="editarInsumo('${i.id}')">✏️</button> <button class="btn btn-red btn-sm" onclick="deletarInsumo('${i.id}')">🗑️</button></td></tr>`});
 html+='</tbody></table>';el.innerHTML=html}
 renderInsumos();
 
@@ -382,7 +382,7 @@ function buildInsumoOptions(){return'<option value="">Selecione...</option>'+DB.
 
 // ===== MASSA =====
 function initMassa(){const el=document.getElementById('massaIngredientes');if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];el.innerHTML='';DB.massa.ingredientes.forEach((ing,idx)=>{el.innerHTML+=buildIngRow('massa',idx,ing)});document.getElementById('massaPeso').value=DB.massa.pesoTotal||3000;document.getElementById('mPeq').value=DB.massa.gramas?.Pequeno||20;document.getElementById('mMed').value=DB.massa.gramas?.Medio||30;document.getElementById('mGra').value=DB.massa.gramas?.Grande||40;document.getElementById('mFes').value=DB.massa.gramas?.Festa||60;calcMassa()}
-function buildIngRow(prefix,idx,ing){const opts=buildInsumoOptions();return`<div class="ingredient-row" id="${prefix}Row${idx}"><select onchange="${prefix}IngChange(${idx},this)">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="${prefix}QtdChange(${idx},this)"><span class="cost" id="${prefix}Cost${idx}">R$ 0</span><button class="btn-remove" onclick="remove${prefix.charAt(0).toUpperCase()+prefix.slice(1)}Ing(${idx})">âœ•</button></div>`.replace(`value="${ing.insumoId}"`,ing.insumoId?`value="${ing.insumoId}" selected`:`value="${ing.insumoId}"`)}
+function buildIngRow(prefix,idx,ing){const opts=buildInsumoOptions();return`<div class="ingredient-row" id="${prefix}Row${idx}"><select onchange="${prefix}IngChange(${idx},this)">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="${prefix}QtdChange(${idx},this)"><span class="cost" id="${prefix}Cost${idx}">R$ 0</span><button class="btn-remove" onclick="remove${prefix.charAt(0).toUpperCase()+prefix.slice(1)}Ing(${idx})">✕</button></div>`.replace(`value="${ing.insumoId}"`,ing.insumoId?`value="${ing.insumoId}" selected`:`value="${ing.insumoId}"`)}
 function addIngMassa(){DB.massa.ingredientes.push({insumoId:'',qtd:0});initMassa()}
 function removeMassaIng(idx){DB.massa.ingredientes.splice(idx,1);if(!DB.massa.ingredientes.length)DB.massa.ingredientes=[{insumoId:'',qtd:0}];initMassa()}
 function massaIngChange(idx,sel){DB.massa.ingredientes[idx].insumoId=sel.value;calcMassa()}
@@ -395,27 +395,27 @@ document.getElementById('mCPeq').textContent='R$ '+(cpg*gP).toFixed(4);document.
 // Fix select values
 DB.massa.ingredientes.forEach((ing,idx)=>{const sel=document.querySelector(`#massaRow${idx} select`);if(sel&&ing.insumoId)sel.value=ing.insumoId})}
 function salvarMassa(){DB.massa.pesoTotal=parseFloat(document.getElementById('massaPeso').value)||3000;DB.massa.gramas={Pequeno:parseFloat(document.getElementById('mPeq').value)||20,Medio:parseFloat(document.getElementById('mMed').value)||30,Grande:parseFloat(document.getElementById('mGra').value)||40,Festa:parseFloat(document.getElementById('mFes').value)||60};saveDB();toast('Massa salva!')}
-function getMassaCustoPorTamanho(tam){let custoTotal=0;DB.massa.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const peso=DB.massa.pesoTotal||1;const cpg=custoTotal/peso;const tamMap={Pequeno:'Pequeno','MÃ©dio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};const g=DB.massa.gramas?.[tamMap[tam]||tam]||0;return cpg*g}
+function getMassaCustoPorTamanho(tam){let custoTotal=0;DB.massa.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const peso=DB.massa.pesoTotal||1;const cpg=custoTotal/peso;const tamMap={Pequeno:'Pequeno','Médio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};const g=DB.massa.gramas?.[tamMap[tam]||tam]||0;return cpg*g}
 
 // ===== RECHEIOS =====
 function novoRecheio(){DB.recheios.push({id:Date.now().toString(),nome:'Novo Recheio',ingredientes:[{insumoId:'',qtd:0}],pesoTotal:1000,gramas:{Pequeno:15,Medio:20,Grande:30,Festa:45}});saveDB();renderRecheios()}
-function renderRecheios(){const el=document.getElementById('recheiosLista');if(!DB.recheios.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ§†</div>Nenhum recheio cadastrado</div>';updateRecheioSelect();return}
+function renderRecheios(){const el=document.getElementById('recheiosLista');if(!DB.recheios.length){el.innerHTML='<div class="empty-state"><div class="icon">🧆</div>Nenhum recheio cadastrado</div>';updateRecheioSelect();return}
 let html='';DB.recheios.forEach((r,ri)=>{let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);
-html+=`<div class="recheio-card"><h3>ðŸ§† <input value="${r.nome}" style="border:none;font-size:1rem;font-weight:700;background:transparent;padding:0;flex:1" onchange="DB.recheios[${ri}].nome=this.value;saveDB();updateRecheioSelect()"> <button class="btn btn-red btn-sm" onclick="if(confirm('Excluir?')){DB.recheios.splice(${ri},1);saveDB();renderRecheios()}">ðŸ—‘ï¸</button></h3>`;
-r.ingredientes.forEach((ing,ii)=>{const opts=buildInsumoOptions();html+=`<div class="ingredient-row"><select onchange="DB.recheios[${ri}].ingredientes[${ii}].insumoId=this.value;saveDB();renderRecheios()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="DB.recheios[${ri}].ingredientes[${ii}].qtd=parseFloat(this.value)||0;saveDB();renderRecheios()"><span class="cost">R$ ${(()=>{if(!ing.insumoId)return'0';const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return'0';return(getInsumoCustoPorUnidade(ins)*(ing.qtd||0)).toFixed(2)})()}</span><button class="btn-remove" onclick="DB.recheios[${ri}].ingredientes.splice(${ii},1);if(!DB.recheios[${ri}].ingredientes.length)DB.recheios[${ri}].ingredientes=[{insumoId:'',qtd:0}];saveDB();renderRecheios()">âœ•</button></div>`});
+html+=`<div class="recheio-card"><h3>🧆 <input value="${r.nome}" style="border:none;font-size:1rem;font-weight:700;background:transparent;padding:0;flex:1" onchange="DB.recheios[${ri}].nome=this.value;saveDB();updateRecheioSelect()"> <button class="btn btn-red btn-sm" onclick="if(confirm('Excluir?')){DB.recheios.splice(${ri},1);saveDB();renderRecheios()}">🗑️</button></h3>`;
+r.ingredientes.forEach((ing,ii)=>{const opts=buildInsumoOptions();html+=`<div class="ingredient-row"><select onchange="DB.recheios[${ri}].ingredientes[${ii}].insumoId=this.value;saveDB();renderRecheios()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="DB.recheios[${ri}].ingredientes[${ii}].qtd=parseFloat(this.value)||0;saveDB();renderRecheios()"><span class="cost">R$ ${(()=>{if(!ing.insumoId)return'0';const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return'0';return(getInsumoCustoPorUnidade(ins)*(ing.qtd||0)).toFixed(2)})()}</span><button class="btn-remove" onclick="DB.recheios[${ri}].ingredientes.splice(${ii},1);if(!DB.recheios[${ri}].ingredientes.length)DB.recheios[${ri}].ingredientes=[{insumoId:'',qtd:0}];saveDB();renderRecheios()">✕</button></div>`});
 html+=`<button class="btn btn-primary btn-sm" onclick="DB.recheios[${ri}].ingredientes.push({insumoId:'',qtd:0});saveDB();renderRecheios()" style="margin:10px 0">+ Ingrediente</button>`;
-html+=`<div class="form-row"><div class="form-group"><label>Peso Total (g)</label><input type="number" value="${r.pesoTotal||1000}" onchange="DB.recheios[${ri}].pesoTotal=parseFloat(this.value)||1000;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Pequeno</label><input type="number" value="${r.gramas?.Pequeno||15}" onchange="DB.recheios[${ri}].gramas.Pequeno=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/MÃ©dio</label><input type="number" value="${r.gramas?.Medio||20}" onchange="DB.recheios[${ri}].gramas.Medio=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Grande</label><input type="number" value="${r.gramas?.Grande||30}" onchange="DB.recheios[${ri}].gramas.Grande=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Festa</label><input type="number" value="${r.gramas?.Festa||45}" onchange="DB.recheios[${ri}].gramas.Festa=parseFloat(this.value)||0;saveDB();renderRecheios()"></div></div>`;
-html+=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue">R$ ${custoTotal.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Custo/g</div><div class="r-val orange">R$ ${cpg.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Peq</div><div class="r-val green">R$ ${(cpg*(r.gramas?.Pequeno||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">MÃ©d</div><div class="r-val blue">R$ ${(cpg*(r.gramas?.Medio||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Gra</div><div class="r-val orange">R$ ${(cpg*(r.gramas?.Grande||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple">R$ ${(cpg*(r.gramas?.Festa||0)).toFixed(4)}</div></div></div></div></div>`});
+html+=`<div class="form-row"><div class="form-group"><label>Peso Total (g)</label><input type="number" value="${r.pesoTotal||1000}" onchange="DB.recheios[${ri}].pesoTotal=parseFloat(this.value)||1000;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Pequeno</label><input type="number" value="${r.gramas?.Pequeno||15}" onchange="DB.recheios[${ri}].gramas.Pequeno=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Médio</label><input type="number" value="${r.gramas?.Medio||20}" onchange="DB.recheios[${ri}].gramas.Medio=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Grande</label><input type="number" value="${r.gramas?.Grande||30}" onchange="DB.recheios[${ri}].gramas.Grande=parseFloat(this.value)||0;saveDB();renderRecheios()"></div><div class="form-group"><label>g/Festa</label><input type="number" value="${r.gramas?.Festa||45}" onchange="DB.recheios[${ri}].gramas.Festa=parseFloat(this.value)||0;saveDB();renderRecheios()"></div></div>`;
+html+=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo Total</div><div class="r-val blue">R$ ${custoTotal.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Custo/g</div><div class="r-val orange">R$ ${cpg.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Peq</div><div class="r-val green">R$ ${(cpg*(r.gramas?.Pequeno||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Méd</div><div class="r-val blue">R$ ${(cpg*(r.gramas?.Medio||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Gra</div><div class="r-val orange">R$ ${(cpg*(r.gramas?.Grande||0)).toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Festa</div><div class="r-val purple">R$ ${(cpg*(r.gramas?.Festa||0)).toFixed(4)}</div></div></div></div></div>`});
 el.innerHTML=html;
 // set select values
 DB.recheios.forEach((r,ri)=>{r.ingredientes.forEach((ing,ii)=>{const sels=el.querySelectorAll(`.recheio-card:nth-child(${ri+1}) select`);if(sels[ii]&&ing.insumoId)sels[ii].value=ing.insumoId})});
 updateRecheioSelect()}
 function getRecheioObj(id){return DB.recheios.find(r=>r.id===id)}
-function getRecheioCustoPorTamanho(recheioId,tam){const r=getRecheioObj(recheioId);if(!r)return 0;let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);const tamMap={Pequeno:'Pequeno','MÃ©dio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};return cpg*(r.gramas?.[tamMap[tam]||tam]||0)}
-function updateRecheioSelect(){const sel=document.getElementById('nfRecheio');if(!sel)return;const val=sel.value;sel.innerHTML='<option value="">âŒ NÃ£o</option>';DB.recheios.forEach(r=>{sel.innerHTML+=`<option value="${r.id}">${r.nome}</option>`});sel.value=val}
+function getRecheioCustoPorTamanho(recheioId,tam){const r=getRecheioObj(recheioId);if(!r)return 0;let custoTotal=0;r.ingredientes.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoTotal+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});const cpg=custoTotal/(r.pesoTotal||1);const tamMap={Pequeno:'Pequeno','Médio':'Medio',Medio:'Medio',Grande:'Grande',Festa:'Festa'};return cpg*(r.gramas?.[tamMap[tam]||tam]||0)}
+function updateRecheioSelect(){const sel=document.getElementById('nfRecheio');if(!sel)return;const val=sel.value;sel.innerHTML='<option value="">❌ Não</option>';DB.recheios.forEach(r=>{sel.innerHTML+=`<option value="${r.id}">${r.nome}</option>`});sel.value=val}
 
 // ===== CUSTOS FIXOS =====
-const CUSTOS_ITEMS=[{key:'aluguel',nome:'Aluguel',desc:'Aluguel do espaÃ§o',icon:'ðŸ '},{key:'energia',nome:'Energia',desc:'Conta de luz',icon:'âš¡'},{key:'gas',nome:'GÃ¡s',desc:'GÃ¡s de cozinha',icon:'ðŸ”¥'},{key:'agua',nome:'Ãgua',desc:'Conta de Ã¡gua',icon:'ðŸ’§'},{key:'internet',nome:'Internet',desc:'Internet/Telefone',icon:'ðŸ“¶'},{key:'funcionarios',nome:'FuncionÃ¡rios',desc:'SalÃ¡rios + encargos',icon:'ðŸ‘©â€ðŸ³'},{key:'combustivel',nome:'CombustÃ­vel',desc:'Gasolina/Transporte',icon:'â›½'},{key:'embalagens',nome:'Embalagens',desc:'Caixas, sacolas',icon:'ðŸ“¦'},{key:'marketing',nome:'Marketing',desc:'AnÃºncios',icon:'ðŸ“Š'},{key:'contador',nome:'Contador',desc:'ServiÃ§os contÃ¡beis',icon:'ðŸ“‹'},{key:'oleo',nome:'Ã“leo de Fritura',desc:'Custo mensal de Ã³leo',icon:'ðŸ›¢ï¸'},{key:'outros',nome:'Outros',desc:'Despesas diversas',icon:'ðŸ’¸'}];
+const CUSTOS_ITEMS=[{key:'aluguel',nome:'Aluguel',desc:'Aluguel do espaço',icon:'🏠'},{key:'energia',nome:'Energia',desc:'Conta de luz',icon:'⚡'},{key:'gas',nome:'Gás',desc:'Gás de cozinha',icon:'🔥'},{key:'agua',nome:'Água',desc:'Conta de água',icon:'💧'},{key:'internet',nome:'Internet',desc:'Internet/Telefone',icon:'📶'},{key:'funcionarios',nome:'Funcionários',desc:'Salários + encargos',icon:'👩‍🍳'},{key:'combustivel',nome:'Combustível',desc:'Gasolina/Transporte',icon:'⛽'},{key:'embalagens',nome:'Embalagens',desc:'Caixas, sacolas',icon:'📦'},{key:'marketing',nome:'Marketing',desc:'Anúncios',icon:'📊'},{key:'contador',nome:'Contador',desc:'Serviços contábeis',icon:'📋'},{key:'oleo',nome:'Óleo de Fritura',desc:'Custo mensal de óleo',icon:'🛢️'},{key:'outros',nome:'Outros',desc:'Despesas diversas',icon:'💸'}];
 function initCustos(){document.getElementById('cfProducao').value=DB.custos.producao||1000;const el=document.getElementById('custosFixosLista');let html='';CUSTOS_ITEMS.forEach(item=>{html+=`<div class="custo-fixo-item"><div class="cf-icon">${item.icon}</div><div class="cf-info"><h4>${item.nome}</h4><small>${item.desc}</small></div><input type="number" step="0.01" value="${DB.custos.itens[item.key]||0}" oninput="DB.custos.itens['${item.key}']=parseFloat(this.value)||0;calcCustos()"></div>`});el.innerHTML=html;calcCustos()}
 function calcCustos(){const total=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const prod=parseFloat(document.getElementById('cfProducao')?.value)||1;DB.custos.producao=prod;document.getElementById('cfTotal').textContent='R$ '+total.toFixed(2);document.getElementById('cfUnidade').textContent='R$ '+(total/prod).toFixed(4);document.getElementById('cfCento').textContent='R$ '+(total/prod*100).toFixed(2);updateHeader()}
 function salvarCustos(){DB.custos.producao=parseFloat(document.getElementById('cfProducao').value)||1000;saveDB();updateHeader();toast('Custos salvos!')}
@@ -425,11 +425,11 @@ function getCustoFixoPorUn(){const total=Object.values(DB.custos.itens).reduce((
 let nfIngs=[];
 function initNovaFicha(){if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();updateRecheioSelect();calcFicha()}
 function renderNFIngs(){const el=document.getElementById('nfIngredientes');let html='';nfIngs.forEach((ing,idx)=>{const opts=buildInsumoOptions();const ins=ing.insumoId?DB.insumos.find(i=>i.id===ing.insumoId):null;const cpu=ins?getInsumoCustoPorUnidade(ins):0;const custo=cpu*(ing.qtd||0);
-html+=`<div class="ingredient-row"><select onchange="nfIngs[${idx}].insumoId=this.value;renderNFIngs();calcFicha()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="nfIngs[${idx}].qtd=parseFloat(this.value)||0;calcFicha()"><span class="cost">R$ ${custo.toFixed(2)}</span><button class="btn-remove" onclick="nfIngs.splice(${idx},1);if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()">âœ•</button></div>`});el.innerHTML=html;
+html+=`<div class="ingredient-row"><select onchange="nfIngs[${idx}].insumoId=this.value;renderNFIngs();calcFicha()">${opts}</select><input type="number" step="any" placeholder="Qtd" value="${ing.qtd||''}" oninput="nfIngs[${idx}].qtd=parseFloat(this.value)||0;calcFicha()"><span class="cost">R$ ${custo.toFixed(2)}</span><button class="btn-remove" onclick="nfIngs.splice(${idx},1);if(!nfIngs.length)nfIngs=[{insumoId:'',qtd:0}];renderNFIngs();calcFicha()">✕</button></div>`});el.innerHTML=html;
 nfIngs.forEach((ing,idx)=>{const sel=el.querySelectorAll('.ingredient-row select')[idx];if(sel&&ing.insumoId)sel.value=ing.insumoId})}
 function addIngredienteFicha(){nfIngs.push({insumoId:'',qtd:0});renderNFIngs()}
 function calcFicha(){let custoIng=0;nfIngs.forEach(ing=>{if(!ing.insumoId)return;const ins=DB.insumos.find(i=>i.id===ing.insumoId);if(!ins)return;custoIng+=getInsumoCustoPorUnidade(ins)*(ing.qtd||0)});
-const tam=document.getElementById('nfTam')?.value||'MÃ©dio';const rend=parseFloat(document.getElementById('nfRend')?.value)||1;const precoUn=parseFloat(document.getElementById('nfPrecoUn')?.value)||0;const precoCento=parseFloat(document.getElementById('nfPrecoCento')?.value)||0;const usarMassa=document.getElementById('nfMassa')?.value==='1';const recheioId=document.getElementById('nfRecheio')?.value;
+const tam=document.getElementById('nfTam')?.value||'Médio';const rend=parseFloat(document.getElementById('nfRend')?.value)||1;const precoUn=parseFloat(document.getElementById('nfPrecoUn')?.value)||0;const precoCento=parseFloat(document.getElementById('nfPrecoCento')?.value)||0;const usarMassa=document.getElementById('nfMassa')?.value==='1';const recheioId=document.getElementById('nfRecheio')?.value;
 let custoMassa=0;if(usarMassa)custoMassa=getMassaCustoPorTamanho(tam)*rend;
 let custoRecheio=0;if(recheioId)custoRecheio=getRecheioCustoPorTamanho(recheioId,tam)*rend;
 const custoFixoTotal=getCustoFixoPorUn()*rend;
@@ -452,36 +452,36 @@ function renderFichas(){const busca=(document.getElementById('ficBusca')?.value|
 const counts={todas:DB.fichas.length,Frito:DB.fichas.filter(f=>f.tipo==='Frito').length,Assado:DB.fichas.filter(f=>f.tipo==='Assado').length,Congelado:DB.fichas.filter(f=>f.tipo==='Congelado').length};
 document.getElementById('fAll').textContent=counts.todas;document.getElementById('fFrito').textContent=counts.Frito;document.getElementById('fAssado').textContent=counts.Assado;document.getElementById('fCongelado').textContent=counts.Congelado;
 if(ficFiltro!=='todas')lista=lista.filter(f=>f.tipo===ficFiltro);
-const el=document.getElementById('fichasLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">ðŸ“‹</div>Nenhuma ficha</div>';return}
+const el=document.getElementById('fichasLista');if(!lista.length){el.innerHTML='<div class="empty-state"><div class="icon">📋</div>Nenhuma ficha</div>';return}
 let html='';lista.forEach(f=>{const c=getFichaCustos(f);const badgeClass=f.tipo==='Frito'?'badge-frito':f.tipo==='Assado'?'badge-assado':'badge-congelado';
-html+=`<div class="ficha-card"><div class="fc-info"><h3>ðŸ¥Ÿ ${f.nome}</h3><div class="fc-meta"><span class="badge ${badgeClass}">${f.tipo}</span><span>ðŸ“ ${f.categoria}</span><span>ðŸ“ ${f.tamanho}</span><span>ðŸ“¦ ${f.rendimento} un</span></div></div><div class="fc-costs"><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--red)">R$ ${c.custoUn.toFixed(2)}</div><div class="fc-cost-label">Custo/Un</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--primary)">R$ ${c.custoCento.toFixed(2)}</div><div class="fc-cost-label">Custo/100</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:${c.cmv<=30?'var(--green)':c.cmv<=40?'var(--primary)':'var(--red)'}">${c.cmv.toFixed(1)}%</div><div class="fc-cost-label">CMV</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--green)">R$ ${c.lucro.toFixed(2)}</div><div class="fc-cost-label">Lucro</div></div></div><div class="fc-actions"><button class="btn btn-primary btn-sm" onclick="editFicha('${f.id}')">âœï¸</button><button class="btn btn-green btn-sm" onclick="dupFicha('${f.id}')">ðŸ“‹</button><button class="btn btn-red btn-sm" onclick="delFicha('${f.id}')">ðŸ—‘ï¸</button></div></div>`});el.innerHTML=html}
+html+=`<div class="ficha-card"><div class="fc-info"><h3>🥟 ${f.nome}</h3><div class="fc-meta"><span class="badge ${badgeClass}">${f.tipo}</span><span>📁 ${f.categoria}</span><span>📏 ${f.tamanho}</span><span>📦 ${f.rendimento} un</span></div></div><div class="fc-costs"><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--red)">R$ ${c.custoUn.toFixed(2)}</div><div class="fc-cost-label">Custo/Un</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--primary)">R$ ${c.custoCento.toFixed(2)}</div><div class="fc-cost-label">Custo/100</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:${c.cmv<=30?'var(--green)':c.cmv<=40?'var(--primary)':'var(--red)'}">${c.cmv.toFixed(1)}%</div><div class="fc-cost-label">CMV</div></div><div class="fc-cost-item"><div class="fc-cost-val" style="color:var(--green)">R$ ${c.lucro.toFixed(2)}</div><div class="fc-cost-label">Lucro</div></div></div><div class="fc-actions"><button class="btn btn-primary btn-sm" onclick="editFicha('${f.id}')">✏️</button><button class="btn btn-green btn-sm" onclick="dupFicha('${f.id}')">📋</button><button class="btn btn-red btn-sm" onclick="delFicha('${f.id}')">🗑️</button></div></div>`});el.innerHTML=html}
 function editFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;document.getElementById('nfEditId').value=f.id;document.getElementById('nfNome').value=f.nome;document.getElementById('nfTipo').value=f.tipo;document.getElementById('nfCat').value=f.categoria;document.getElementById('nfTam').value=f.tamanho;document.getElementById('nfRend').value=f.rendimento;document.getElementById('nfPrecoUn').value=f.precoUn;document.getElementById('nfPrecoCento').value=f.precoCento;document.getElementById('nfMassa').value=f.usarMassa?'1':'0';nfIngs=JSON.parse(JSON.stringify(f.ingredientes||[{insumoId:'',qtd:0}]));showPage('novaFicha',document.querySelectorAll('nav button')[3]);setTimeout(()=>{document.getElementById('nfRecheio').value=f.recheioId||'';renderNFIngs();calcFicha()},100)}
-function dupFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;const n=JSON.parse(JSON.stringify(f));n.id=Date.now().toString();n.nome=f.nome+' (cÃ³pia)';DB.fichas.push(n);saveDB();updateHeader();renderFichas();toast('Ficha duplicada!')}
-function delFicha(id){if(!confirm('Excluir esta ficha?'))return;DB.fichas=DB.fichas.filter(f=>f.id!==id);saveDB();updateHeader();renderFichas();toast('Ficha excluÃ­da!')}
+function dupFicha(id){const f=DB.fichas.find(x=>x.id===id);if(!f)return;const n=JSON.parse(JSON.stringify(f));n.id=Date.now().toString();n.nome=f.nome+' (cópia)';DB.fichas.push(n);saveDB();updateHeader();renderFichas();toast('Ficha duplicada!')}
+function delFicha(id){if(!confirm('Excluir esta ficha?'))return;DB.fichas=DB.fichas.filter(f=>f.id!==id);saveDB();updateHeader();renderFichas();toast('Ficha excluída!')}
 
 // ===== DASHBOARD =====
-function updateDashboard(){const counts={Pequeno:0,Medio:0,Grande:0,Festa:0};DB.fichas.forEach(f=>{const t=f.tamanho==='MÃ©dio'?'Medio':f.tamanho;if(counts[t]!==undefined)counts[t]++});
+function updateDashboard(){const counts={Pequeno:0,Medio:0,Grande:0,Festa:0};DB.fichas.forEach(f=>{const t=f.tamanho==='Médio'?'Medio':f.tamanho;if(counts[t]!==undefined)counts[t]++});
 document.getElementById('dPeq').textContent=counts.Pequeno;document.getElementById('dMed').textContent=counts.Medio;document.getElementById('dGra').textContent=counts.Grande;document.getElementById('dFes').textContent=counts.Festa;
 document.getElementById('dsIns').textContent=DB.insumos.length;document.getElementById('dsFic').textContent=DB.fichas.length;
 const cfTotal=Object.values(DB.custos.itens).reduce((a,b)=>a+(parseFloat(b)||0),0);const cfProd=DB.custos.producao||1;document.getElementById('dsCF').textContent='R$ '+(cfTotal/cfProd*100).toFixed(2);
-const mCusto=getMassaCustoPorTamanho('MÃ©dio');document.getElementById('dsMassa').textContent='R$ '+mCusto.toFixed(4);
+const mCusto=getMassaCustoPorTamanho('Médio');document.getElementById('dsMassa').textContent='R$ '+mCusto.toFixed(4);
 // Top 5
 const ranked=DB.fichas.map(f=>{const c=getFichaCustos(f);return{...f,...c}}).sort((a,b)=>b.lucro-a.lucro).slice(0,5);
-const topEl=document.getElementById('topLucro');if(!ranked.length){topEl.innerHTML='<div class="empty-state"><div class="icon">ðŸ“‹</div>Cadastre fichas</div>';return}
-let html='<table><thead><tr><th>Salgado</th><th>Custo/Un</th><th>PreÃ§o</th><th>Lucro</th><th>CMV</th></tr></thead><tbody>';ranked.forEach(f=>{html+=`<tr><td><strong>${f.nome}</strong></td><td>R$ ${f.custoUn.toFixed(2)}</td><td>R$ ${f.precoRef.toFixed(2)}</td><td style="color:var(--green);font-weight:700">R$ ${f.lucro.toFixed(2)}</td><td style="color:${f.cmv<=30?'var(--green)':f.cmv<=40?'var(--primary)':'var(--red)'}">${f.cmv.toFixed(1)}%</td></tr>`});html+='</tbody></table>';topEl.innerHTML=html}
+const topEl=document.getElementById('topLucro');if(!ranked.length){topEl.innerHTML='<div class="empty-state"><div class="icon">📋</div>Cadastre fichas</div>';return}
+let html='<table><thead><tr><th>Salgado</th><th>Custo/Un</th><th>Preço</th><th>Lucro</th><th>CMV</th></tr></thead><tbody>';ranked.forEach(f=>{html+=`<tr><td><strong>${f.nome}</strong></td><td>R$ ${f.custoUn.toFixed(2)}</td><td>R$ ${f.precoRef.toFixed(2)}</td><td style="color:var(--green);font-weight:700">R$ ${f.lucro.toFixed(2)}</td><td style="color:${f.cmv<=30?'var(--green)':f.cmv<=40?'var(--primary)':'var(--red)'}">${f.cmv.toFixed(1)}%</td></tr>`});html+='</tbody></table>';topEl.innerHTML=html}
 updateDashboard();
 
 // ===== PRECIFICAR =====
 function initPrec(){const sel=document.getElementById('prFicha');sel.innerHTML='<option value="">-- Selecione --</option>';DB.fichas.forEach(f=>{sel.innerHTML+=`<option value="${f.id}">${f.nome}</option>`});calcPrec()}
 function calcPrec(){const custo=parseFloat(document.getElementById('prCusto').value)||0;const cmv=parseFloat(document.getElementById('prCMV').value)||30;document.getElementById('prCMVVal').textContent=cmv+'%';const preco=cmv>0?custo/(cmv/100):0;const lucro=preco-custo;document.getElementById('prPreco').textContent='R$ '+preco.toFixed(2).replace('.',',');document.getElementById('prLucro').textContent='Lucro: R$ '+lucro.toFixed(2).replace('.',',')}
 function precFicha(){const id=document.getElementById('prFicha').value;const el=document.getElementById('prFichaResult');if(!id){el.innerHTML='';return}const f=DB.fichas.find(x=>x.id===id);if(!f){el.innerHTML='';return}const c=getFichaCustos(f);
-el.innerHTML=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val red">R$ ${c.custoUn.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange">R$ ${c.custoCento.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">PreÃ§o Atual</div><div class="r-val blue">R$ ${c.precoRef.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">CMV</div><div class="r-val ${c.cmv<=30?'green':c.cmv<=40?'orange':'red'}">${c.cmv.toFixed(1)}%</div></div><div class="resumo-item"><div class="r-label">Lucro</div><div class="r-val ${c.lucro>=0?'green':'red'}">R$ ${c.lucro.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">PreÃ§o Ideal (30%)</div><div class="r-val green">R$ ${(c.custoUn/0.3).toFixed(2)}</div></div></div></div>`}
+el.innerHTML=`<div class="resumo-box"><div class="resumo-grid"><div class="resumo-item"><div class="r-label">Custo/Unidade</div><div class="r-val red">R$ ${c.custoUn.toFixed(4)}</div></div><div class="resumo-item"><div class="r-label">Custo/Cento</div><div class="r-val orange">R$ ${c.custoCento.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Atual</div><div class="r-val blue">R$ ${c.precoRef.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">CMV</div><div class="r-val ${c.cmv<=30?'green':c.cmv<=40?'orange':'red'}">${c.cmv.toFixed(1)}%</div></div><div class="resumo-item"><div class="r-label">Lucro</div><div class="r-val ${c.lucro>=0?'green':'red'}">R$ ${c.lucro.toFixed(2)}</div></div><div class="resumo-item"><div class="r-label">Preço Ideal (30%)</div><div class="r-val green">R$ ${(c.custoUn/0.3).toFixed(2)}</div></div></div></div>`}
 
 // ===== CONFIG =====
-function salvarCredenciais(){const u=document.getElementById('cfgUser').value.trim();const p=document.getElementById('cfgPass').value;if(!u||!p){toast('Preencha usuÃ¡rio e senha!','error');return}localStorage.setItem('salgadoControlCredentials',JSON.stringify({user:u,pass:p}));toast('Credenciais salvas!')}
+function salvarCredenciais(){const u=document.getElementById('cfgUser').value.trim();const p=document.getElementById('cfgPass').value;if(!u||!p){toast('Preencha usuário e senha!','error');return}localStorage.setItem('salgadoControlCredentials',JSON.stringify({user:u,pass:p}));toast('Credenciais salvas!')}
 function exportarDados(){const data=JSON.stringify(DB,null,2);const blob=new Blob([data],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='salgadocontrol_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('Dados exportados!')}
-function importarDados(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){try{DB=JSON.parse(ev.target.result);saveDB();updateHeader();toast('Dados importados! Recarregando...');setTimeout(()=>location.reload(),1500)}catch(err){toast('Arquivo invÃ¡lido!','error')}};reader.readAsText(file)}
-function limparTudo(){if(!confirm('Tem certeza? Todos os dados serÃ£o apagados!'))return;localStorage.removeItem('salgadoControlDB');location.reload()}
+function importarDados(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){try{DB=JSON.parse(ev.target.result);saveDB();updateHeader();toast('Dados importados! Recarregando...');setTimeout(()=>location.reload(),1500)}catch(err){toast('Arquivo inválido!','error')}};reader.readAsText(file)}
+function limparTudo(){if(!confirm('Tem certeza? Todos os dados serão apagados!'))return;localStorage.removeItem('salgadoControlDB');location.reload()}
 </script>
 </body>
 </html>
